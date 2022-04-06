@@ -88,6 +88,8 @@ Matrice::~Matrice()
     delete[] this->elements;
 }
 
+//=======================================================================================//
+
 /**
 * Méthode afficherMatrice, imprime la matrice
 *
@@ -105,4 +107,33 @@ void Matrice::afficherMatrice(uint8_t format)
 		}
 		cout << endl;
 	}
+}
+
+//=======================================================================================//
+
+/**
+ * Méthode getDimX, retourne la dimension en X de la matrice
+ * 
+ */
+uint8_t Matrice::getDimX()
+{
+    return this->dimX;
+}
+
+/**
+ * Méthode getDimY, retourne la dimension en Y de la matrice
+ * 
+ */
+uint8_t Matrice::getDimY()
+{
+    return this->dimY;
+}
+
+/**
+ * Méthode getNomDeLaMatrice, retourne le nom de la matrice
+ * 
+ */
+char* Matrice::getNomDeLaMatrice()
+{
+    return this->nomDeLaMatrice;
 }

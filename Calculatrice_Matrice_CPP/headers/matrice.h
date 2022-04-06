@@ -43,12 +43,35 @@ class Matrice
 		
 		~Matrice();
 
+        //=======================================================================================//
+
 		/**
 		 * Méthode afficherMatrice, imprime la matrice
 		 *
 		 * @param format le nombre de caractères à afficher pour chaque élément.
 		 */
 		void afficherMatrice(uint8_t format);
+
+        //=======================================================================================//
+
+        /**
+         * Méthode getDimX, retourne la dimension en X de la matrice
+         * 
+         */
+        uint8_t getDimX();
+
+        /**
+         * Méthode getDimY, retourne la dimension en Y de la matrice
+         * 
+         */
+        uint8_t getDimY();
+
+        /**
+         * Méthode getNomDeLaMatrice, retourne le nom de la matrice
+         * 
+         */
+        char* getNomDeLaMatrice();
+
 		
 	private:
 		

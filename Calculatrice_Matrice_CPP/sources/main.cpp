@@ -21,5 +21,8 @@ int main()
     matrice1.afficherMatrice(5);
     matrice2.afficherMatrice(5);
     matrice3.afficherMatrice(5);
+
+    cout << matrice.getNomDeLaMatrice() << endl;
+    cout << "Dimesenion : {" << (int)matrice.getDimX() << ", " << (int)matrice.getDimY() << "}" << endl;
     return 0;
 }

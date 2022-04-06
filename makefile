@@ -4,14 +4,16 @@ G++ 	= -g -Wall
 
 Sources = Calculatrice_Matrice_CPP/sources
 
-all: $(Sources)/main.o $(Sources)/matrice.o
-	$(CC) $(G++) $(Sources)/main.o $(Sources)/matrice.o -o calculatrice_matrice_CPP_0-0-1
+obj		= Calculatrice_Matrice_CPP/obj
 
-obj/main.o: 
-	$(CC) $(G++) -c $(Sources)/main.cpp
+all: $(obj)/main.o $(obj)/matrice.o
+	$(CC) $(G++) $(obj)/main.o $(obj)/matrice.o -o calculatrice_matrice_CPP_0-0-1
 
-obj/matrice.o: 
-	$(CC) $(G++) -c $(Sources)/matrice.cpp
+$(obj)/main.o: 
+	$(CC) $(G++) -c $(Sources)/main.cpp -o $(obj)/main.o
+
+$(obj)/matrice.o: 
+	$(CC) $(G++) -c $(Sources)/matrice.cpp -o $(obj)/matrice.o
 
 clean:
-	rm -f obj/*.o calculatrice_matrice_CPP_0-0-1
+	rm -f $(obj)/*.o calculatrice_matrice_CPP_0-0-1
