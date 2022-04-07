@@ -2,8 +2,8 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : main.cpp                              */
-/* Numéro de version : 0.0.1                                 */
-/* Date              : 06/04/2022                            */
+/* Numéro de version : 0.0.3                                 */
+/* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
 
@@ -22,7 +22,8 @@ int main()
     matrice2.afficherMatrice(5);
     matrice3.afficherMatrice(5);
 
-    cout << matrice.getNomDeLaMatrice() << endl;
-    cout << "Dimesenion : {" << (int)matrice.getDimX() << ", " << (int)matrice.getDimY() << "}" << endl;
+    cout << matrice2.getNomDeLaMatrice() << endl;
+    cout << "Dimesenion : {" << (int)matrice2.getDimX() << ", " << (int)matrice2.getDimY() << "}" << endl;
+    cout << "Element : " << matrice2.getElement(1, 1) << endl;
     return 0;
 }

@@ -2,8 +2,8 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.h                             */
-/* Numéro de version : 0.0.1                                 */
-/* Date              : 06/04/2022                            */
+/* Numéro de version : 0.0.3                                 */
+/* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
 
@@ -71,6 +71,16 @@ class Matrice
          * 
          */
         char* getNomDeLaMatrice();
+
+		/**
+		 * Méthode getElement, retourne l'élément de la matrice à la position donnée
+		 *
+		 * @param x la position en X de l'élément à retourner
+		 * @param y la position en Y de l'élément à retourner
+		 *
+		 * @return l'élément de la matrice à la position donnée
+		 */
+		double getElement(uint8_t x, uint8_t y);
 
 		
 	private:

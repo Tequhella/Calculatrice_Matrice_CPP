@@ -2,8 +2,8 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.cpp                           */
-/* Numéro de version : 0.0.1                                 */
-/* Date              : 06/04/2022                            */
+/* Numéro de version : 0.0.3                                 */
+/* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
 
@@ -19,13 +19,21 @@ Matrice::Matrice()
 	this->dimY = rand() % 50;
 	this->nomDeLaMatrice = "Matrice Hasard";
 	this->elements = new double[this->dimX * this->dimY];
-	for (int i = 0; i < this->dimY; i++)
-	{
-		for (int j = 0; j < this->dimX; j++)
-		{
-			this->elements[this->dimX * i + j] = rand() % 500;
-		}
-	}
+
+    if (this->elements)
+    {
+        for (int i = 0; i < this->dimY; i++)
+        {
+            for (int j = 0; j < this->dimX; j++)
+            {
+                this->elements[this->dimX * i + j] = rand() % 500;
+            }
+        }
+    }
+    else
+    {
+        cout << "Erreur d'allocation de la matrice" << endl;
+    }
 }
 
 /**
@@ -38,48 +46,53 @@ Matrice::Matrice()
  *
  * @return Un pointeur vers une structure Matrice nouvellement allouée.
  */
-Matrice::Matrice(char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type)
+Matrice::Matrice(char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type) : dimX(dimX), dimY(dimY), nomDeLaMatrice(nomDeLaMatrice)
 {
-    this->dimX = dimX;
-    this->dimY = dimY;
-    this->nomDeLaMatrice = nomDeLaMatrice;
     this->elements = new double[this->dimX * this->dimY];
-    switch (type)
+
+    if (this->elements)
     {
-        case NULLE:
-            for (int i = 0; i < this->dimY; i++)
-            {
-                for (int j = 0; j < this->dimX; j++)
+        switch (type)
+        {
+            case NULLE:
+                for (int i = 0; i < this->dimY; i++)
                 {
-                    this->elements[this->dimX * i + j] = 0;
-                }
-            }
-            break;
-        case IDENTITE:
-            for (int i = 0; i < this->dimY; i++)
-            {
-                for (int j = 0; j < this->dimX; j++)
-                {
-                    if (i == j)
-                    {
-                        this->elements[this->dimX * i + j] = 1;
-                    }
-                    else
+                    for (int j = 0; j < this->dimX; j++)
                     {
                         this->elements[this->dimX * i + j] = 0;
                     }
                 }
-            }
-            break;
-        case ALEATOIRE:
-            for (int i = 0; i < this->dimY; i++)
-            {
-                for (int j = 0; j < this->dimX; j++)
+                break;
+            case IDENTITE:
+                for (int i = 0; i < this->dimY; i++)
                 {
-                    this->elements[this->dimX * i + j] = rand() % 500;
+                    for (int j = 0; j < this->dimX; j++)
+                    {
+                        if (i == j)
+                        {
+                            this->elements[this->dimX * i + j] = 1;
+                        }
+                        else
+                        {
+                            this->elements[this->dimX * i + j] = 0;
+                        }
+                    }
                 }
-            }
-            break;
+                break;
+            case ALEATOIRE:
+                for (int i = 0; i < this->dimY; i++)
+                {
+                    for (int j = 0; j < this->dimX; j++)
+                    {
+                        this->elements[this->dimX * i + j] = rand() % 500;
+                    }
+                }
+                break;
+        }
+    }
+    else
+    {
+        cerr << "Erreur d'allocation de la matrice" << endl;
     }
 }
 
@@ -99,6 +112,7 @@ void Matrice::afficherMatrice(uint8_t format)
 {
     cout.precision(format);
 	cout << this->nomDeLaMatrice << endl;
+
 	for (int i = 0; i < this->dimY; i++)
 	{
 		for (int j = 0; j < this->dimX; j++)
@@ -136,4 +150,22 @@ uint8_t Matrice::getDimY()
 char* Matrice::getNomDeLaMatrice()
 {
     return this->nomDeLaMatrice;
+}
+
+/**
+ * Méthode getElement, retourne l'élément de la matrice à la position donnée
+ *
+ * @param x la position en X de l'élément à retourner
+ * @param y la position en Y de l'élément à retourner
+ *
+ * @return l'élément de la matrice à la position donnée
+ */
+double Matrice::getElement(uint8_t x, uint8_t y)
+{
+    if (x < this->dimX && y < this->dimY) /*--->*/ return this->elements[this->dimX * y + x];
+    else
+    {
+        cout << "Erreur : la position de l'élément est invalide" << endl;
+        return 0;
+    }
 }
