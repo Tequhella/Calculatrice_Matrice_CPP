@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.h                             */
-/* Numéro de version : 0.0.3                                 */
+/* Numéro de version : 0.0.4                                 */
 /* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -81,6 +81,44 @@ class Matrice
 		 * @return l'élément de la matrice à la position donnée
 		 */
 		double getElement(uint8_t x, uint8_t y);
+
+		/**
+		 * Méthode setElement, modifie l'élément de la matrice à la position donnée
+		 *
+		 * @param x la position en X de l'élément à modifier
+		 * @param y la position en Y de l'élément à modifier
+		 * @param valeur la nouvelle valeur de l'élément à modifier
+		 *
+		 * @return 2 si les coordonnées sont invalides, 1 si la modification a pu se faire, 0 sinon
+		 */
+		uint8_t setElement(uint8_t x, uint8_t y, double valeur);
+
+		/**
+		 * Méthode setNomDeLaMatrice, modifie le nom de la matrice
+		 *
+		 * @param nomDeLaMatrice le nouveau nom de la matrice
+		 *
+		 * @return 1 si la modification a pu se faire, 0 sinon
+		 */
+		uint8_t setNomDeLaMatrice(char* nomDeLaMatrice);
+
+		/**
+		 * Méthode setDimX, modifie la dimension en X de la matrice en créant une nouvelle matrice
+		 *
+		 * @param dimX la nouvelle dimension en X de la matrice
+		 *
+		 * @return 1 si la modification a pu se faire, 0 sinon
+		 */
+		uint8_t setDimX(uint8_t dimX);
+
+		/**
+		 * Méthode setDimY, modifie la dimension en Y de la matrice en créant une nouvelle matrice
+		 *
+		 * @param dimY la nouvelle dimension en Y de la matrice
+		 *
+		 * @return 1 si la modification a pu se faire, 0 sinon
+		 */
+		uint8_t setDimY(uint8_t dimY);
 
 		
 	private:
