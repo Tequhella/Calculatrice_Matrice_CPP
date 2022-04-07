@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.cpp                           */
-/* Numéro de version : 0.0.4                                 */
+/* Numéro de version : 0.0.5                                 */
 /* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -15,8 +15,8 @@
 Matrice::Matrice()
 {
     srand(time(NULL));
-	this->dimX = rand() % 50;
-	this->dimY = rand() % 50;
+	this->dimX = rand() % 20;
+	this->dimY = rand() % 20;
 	this->nomDeLaMatrice = "Matrice Hasard";
 	this->elements = new double[this->dimX * this->dimY];
 
@@ -26,7 +26,7 @@ Matrice::Matrice()
         {
             for (int j = 0; j < this->dimX; j++)
             {
-                this->elements[this->dimX * i + j] = rand() % 500;
+                this->elements[this->dimX * i + j] = rand() % 100;
             }
         }
     }
@@ -84,7 +84,7 @@ Matrice::Matrice(char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type)
                 {
                     for (int j = 0; j < this->dimX; j++)
                     {
-                        this->elements[this->dimX * i + j] = rand() % 500;
+                        this->elements[this->dimX * i + j] = rand() % 100;
                     }
                 }
                 break;
@@ -121,6 +121,34 @@ void Matrice::afficherMatrice(uint8_t format)
 		}
 		cout << endl;
 	}
+}
+
+/**
+ * Méthode transposerMatrice, transpose la matrice
+ * 
+ * @return la matrice transposée
+ */
+Matrice* Matrice::transposerMatrice()
+{
+    Matrice* matriceTransposee = new Matrice("Matrice Transposée", this->dimX, this->dimY, NULLE);
+
+    if (matriceTransposee)
+    {
+        for (int i = 0; i < this->dimY; i++)
+        {
+            for (int j = 0; j < this->dimX; j++)
+            {
+                matriceTransposee->setElement(j, i, this->getElement(i, j));
+            }
+        }
+
+        return matriceTransposee;
+    }
+    else
+    {
+        cerr << "Erreur d'allocation de la matrice" << endl;
+        return nullptr;
+    }
 }
 
 //=======================================================================================//

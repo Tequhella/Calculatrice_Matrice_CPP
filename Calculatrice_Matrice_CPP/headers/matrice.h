@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.h                             */
-/* Numéro de version : 0.0.4                                 */
+/* Numéro de version : 0.0.5                                 */
 /* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -11,6 +11,7 @@
 
 #include <iostream>
 
+/* Enumération des différents type de matrice. */
 enum
 {
     NULLE,
@@ -51,6 +52,13 @@ class Matrice
 		 * @param format le nombre de caractères à afficher pour chaque élément.
 		 */
 		void afficherMatrice(uint8_t format);
+
+		/**
+		 * Méthode transposerMatrice, transpose la matrice
+		 * 
+		 * @return la matrice transposée
+		 */
+		Matrice* transposerMatrice();
 
         //=======================================================================================//
 
@@ -123,8 +131,14 @@ class Matrice
 		
 	private:
 		
+		/* Deux variables de type `uint8_t` (entier 8 bits non signé) et elles sont utilisées pour stocker les
+		valeurs des dimension X et Y. */
 		uint8_t dimX;
 		uint8_t dimY;
+
+		/* Il s'agit du tableau d'élément de la matrice. */
 		double* elements;
+
+		/* Un tableau de caractères pour stocker le nom de la matrice. */
 		char*	nomDeLaMatrice;
 };
