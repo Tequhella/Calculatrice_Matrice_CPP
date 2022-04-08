@@ -151,6 +151,45 @@ Matrice* Matrice::transposerMatrice()
     }
 }
 
+/**
+ * Méthode additionnerMatrice, additionne deux matrice.
+ * 
+ * @param matriceAdditionneur la matrice qui s'ajoutera à la matrice actuelle.
+ * @param nomDeLaMatriceSomme le nom de la matrice issue de l'addition.
+ * 
+ * @return la matrice issue de l'addition.
+ */
+Matrice* Matrice::additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLaMatriceSomme)
+{
+    if (this->dimX == matriceAdditionneur->getDimX() && this->dimY == matriceAdditionneur->getDimY())
+    {
+        Matrice* matriceSomme = new Matrice(nomDeLaMatriceSomme, this->dimX, this->dimY, NULLE);
+
+        if (matriceSomme)
+        {
+            for (int i = 0; i < this->dimY; i++)
+            {
+                for (int j = 0; j < this->dimX; j++)
+                {
+                    matriceSomme->setElement(j, i, this->getElement(j, i) + matriceAdditionneur->getElement(j, i));
+                }
+            }
+
+            return matriceSomme;
+        }
+        else
+        {
+            cerr << "Erreur d'allocation de la matrice" << endl;
+            return nullptr;
+        }
+    }
+    else
+    {
+        cerr << "Les matrices ne sont pas de même dimensions" << endl;
+        return nullptr;
+    }
+}
+
 //=======================================================================================//
 
 /**

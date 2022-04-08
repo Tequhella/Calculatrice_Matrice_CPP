@@ -12,15 +12,18 @@
 
 int main()
 {
-    Matrice* matrice = new Matrice("Matrice 1", 5, 5, ALEATOIRE);
-    
-    Matrice* matrice2 = matrice->transposerMatrice();
+    Matrice* matrice1 = new Matrice("Matrice 1", 5, 5, ALEATOIRE);
+    Matrice* matrice2 = new Matrice("Matrice 2", 5, 5, ALEATOIRE);
 
-    matrice->afficherMatrice(3);
+    Matrice* matriceSomme = matrice1->additionnerMatrice(matrice2, "Matrice Somme");
+
+    matrice1->afficherMatrice(3);
     matrice2->afficherMatrice(3);
+    matriceSomme->afficherMatrice(3);
 
-    delete matrice;
+    delete matrice1;
     delete matrice2;
+    delete matriceSomme;
 
     return 0;
 }

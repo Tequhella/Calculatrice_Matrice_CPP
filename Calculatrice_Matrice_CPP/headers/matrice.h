@@ -31,12 +31,12 @@ class Matrice
 		Matrice();
 
 		/**
-		 * Crée une matrice avec les dimensions données et la remplit selon le type
+		 * Crée une matrice avec les dimensions données et la remplit selon le type.
 		 *
-		 * @param nomDeLaMatrice le nom de la matrice
-		 * @param dimX le nombre de lignes dans la matrice
-		 * @param dimY le nombre de lignes dans la matrice
-		 * @param type 1 pour la matrice d'identité, 2 pour la matrice aléatoire
+		 * @param nomDeLaMatrice le nom de la matrice.
+		 * @param dimX le nombre de lignes dans la matrice.
+		 * @param dimY le nombre de lignes dans la matrice.
+		 * @param type 1 pour la matrice d'identité, 2 pour la matrice aléatoire.
 		 *
 		 * @return Un pointeur vers une structure Matrice nouvellement allouée.
 		 */
@@ -47,23 +47,34 @@ class Matrice
         //=======================================================================================//
 
 		/**
-		 * Méthode afficherMatrice, imprime la matrice
+		 * Méthode afficherMatrice, imprime la matrice.
 		 *
 		 * @param format le nombre de caractères à afficher pour chaque élément.
 		 */
 		void afficherMatrice(uint8_t format);
 
 		/**
-		 * Méthode transposerMatrice, transpose la matrice
+		 * Méthode transposerMatrice, transpose la matrice.
 		 * 
-		 * @return la matrice transposée
+		 * @return la matrice transposée.
 		 */
 		Matrice* transposerMatrice();
+
+		/**
+		 * Méthode additionnerMatrice, additionne deux matrice.
+		 * 
+		 * @param matriceAdditionneur la matrice qui s'ajoutera à la matrice actuelle.
+		 * @param nomDeLaMatriceSomme le nom de la matrice issue de l'addition.
+		 * 
+		 * @return la matrice issue de l'addition.
+		 */
+		Matrice* additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLaMatriceSomme);
+		
 
         //=======================================================================================//
 
         /**
-         * Méthode getDimX, retourne la dimension en X de la matrice
+         * Méthode getDimX, retourne la dimension en X de la matrice.
          * 
          */
         uint8_t getDimX();
@@ -81,50 +92,50 @@ class Matrice
         char* getNomDeLaMatrice();
 
 		/**
-		 * Méthode getElement, retourne l'élément de la matrice à la position donnée
+		 * Méthode getElement, retourne l'élément de la matrice à la position donnée.
 		 *
-		 * @param x la position en X de l'élément à retourner
-		 * @param y la position en Y de l'élément à retourner
+		 * @param x la position en X de l'élément à retourner.
+		 * @param y la position en Y de l'élément à retourner.
 		 *
-		 * @return l'élément de la matrice à la position donnée
+		 * @return l'élément de la matrice à la position donnée.
 		 */
 		double getElement(uint8_t x, uint8_t y);
 
 		/**
-		 * Méthode setElement, modifie l'élément de la matrice à la position donnée
+		 * Méthode setElement, modifie l'élément de la matrice à la position donnée.
 		 *
-		 * @param x la position en X de l'élément à modifier
-		 * @param y la position en Y de l'élément à modifier
-		 * @param valeur la nouvelle valeur de l'élément à modifier
+		 * @param x la position en X de l'élément à modifier.
+		 * @param y la position en Y de l'élément à modifier.
+		 * @param valeur la nouvelle valeur de l'élément à modifier.
 		 *
-		 * @return 2 si les coordonnées sont invalides, 1 si la modification a pu se faire, 0 sinon
+		 * @return 2 si les coordonnées sont invalides, 1 si la modification a pu se faire, 0 sinon.
 		 */
 		uint8_t setElement(uint8_t x, uint8_t y, double valeur);
 
 		/**
-		 * Méthode setNomDeLaMatrice, modifie le nom de la matrice
+		 * Méthode setNomDeLaMatrice, modifie le nom de la matrice.
 		 *
-		 * @param nomDeLaMatrice le nouveau nom de la matrice
+		 * @param nomDeLaMatrice le nouveau nom de la matrice.
 		 *
-		 * @return 1 si la modification a pu se faire, 0 sinon
+		 * @return 1 si la modification a pu se faire, 0 sinon.
 		 */
 		uint8_t setNomDeLaMatrice(char* nomDeLaMatrice);
 
 		/**
-		 * Méthode setDimX, modifie la dimension en X de la matrice en créant une nouvelle matrice
+		 * Méthode setDimX, modifie la dimension en X de la matrice en créant une nouvelle matrice.
 		 *
-		 * @param dimX la nouvelle dimension en X de la matrice
+		 * @param dimX la nouvelle dimension en X de la matrice.
 		 *
-		 * @return 1 si la modification a pu se faire, 0 sinon
+		 * @return 1 si la modification a pu se faire, 0 sinon.
 		 */
 		uint8_t setDimX(uint8_t dimX);
 
 		/**
-		 * Méthode setDimY, modifie la dimension en Y de la matrice en créant une nouvelle matrice
+		 * Méthode setDimY, modifie la dimension en Y de la matrice en créant une nouvelle matrice.
 		 *
-		 * @param dimY la nouvelle dimension en Y de la matrice
+		 * @param dimY la nouvelle dimension en Y de la matrice.
 		 *
-		 * @return 1 si la modification a pu se faire, 0 sinon
+		 * @return 1 si la modification a pu se faire, 0 sinon.
 		 */
 		uint8_t setDimY(uint8_t dimY);
 
