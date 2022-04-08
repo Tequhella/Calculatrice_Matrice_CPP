@@ -15,15 +15,15 @@ int main()
     Matrice* matrice1 = new Matrice("Matrice 1", 5, 5, ALEATOIRE);
     Matrice* matrice2 = new Matrice("Matrice 2", 5, 5, ALEATOIRE);
 
-    Matrice* matriceSomme = matrice1->additionnerMatrice(matrice2, "Matrice Somme");
+    Matrice* matriceDifference = matrice1->soustraireMatrice(matrice2, "Matrice Différence");
 
     matrice1->afficherMatrice(3);
     matrice2->afficherMatrice(3);
-    matriceSomme->afficherMatrice(3);
+    matriceDifference->afficherMatrice(3);
 
     delete matrice1;
     delete matrice2;
-    delete matriceSomme;
+    delete matriceDifference;
 
     return 0;
 }

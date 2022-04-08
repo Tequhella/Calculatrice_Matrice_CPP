@@ -69,6 +69,16 @@ class Matrice
 		 * @return la matrice issue de l'addition.
 		 */
 		Matrice* additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLaMatriceSomme);
+
+		/**
+		 * Méthode soustraireMatrice, soustrait deux matrice.
+		 * 
+		 * @param matriceSoustrait la matrice qui sera soustraite à la matrice actuelle.
+		 * @param nomDeLaMatriceSoustraite le nom de la matrice issue de la soustraction.
+		 * 
+		 * @return la matrice issue de la soustraction.
+		 */
+		Matrice* soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatriceSoustraite);
 		
 
         //=======================================================================================//

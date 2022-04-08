@@ -190,6 +190,45 @@ Matrice* Matrice::additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLa
     }
 }
 
+/**
+ * Méthode soustraireMatrice, soustrait deux matrice.
+ * 
+ * @param matriceSoustrait la matrice qui sera soustraite à la matrice actuelle.
+ * @param nomDeLaMatriceSoustraite le nom de la matrice issue de la soustraction.
+ * 
+ * @return la matrice issue de la soustraction.
+ */
+Matrice* Matrice::soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatriceSoustraite)
+{
+    if (this->dimX == matriceSoustrait->getDimX() && this->dimY == matriceSoustrait->getDimY())
+    {
+        Matrice* matriceSoustraite = new Matrice(nomDeLaMatriceSoustraite, this->dimX, this->dimY, NULLE);
+
+        if (matriceSoustraite)
+        {
+            for (int i = 0; i < this->dimY; i++)
+            {
+                for (int j = 0; j < this->dimX; j++)
+                {
+                    matriceSoustraite->setElement(j, i, this->getElement(j, i) - matriceSoustrait->getElement(j, i));
+                }
+            }
+
+            return matriceSoustraite;
+        }
+        else
+        {
+            cerr << "Erreur d'allocation de la matrice" << endl;
+            return nullptr;
+        }
+    }
+    else
+    {
+        cerr << "Les matrices ne sont pas de même dimensions" << endl;
+        return nullptr;
+    }
+}
+
 //=======================================================================================//
 
 /**
