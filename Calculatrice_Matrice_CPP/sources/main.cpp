@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : main.cpp                              */
-/* Numéro de version : 0.0.5                                 */
+/* Numéro de version : 0.0.8                                 */
 /* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -12,18 +12,14 @@
 
 int main()
 {
-    Matrice* matrice1 = new Matrice("Matrice 1", 5, 5, ALEATOIRE);
-    Matrice* matrice2 = new Matrice("Matrice 2", 5, 5, ALEATOIRE);
+    Matrice* matrice1 = new Matrice();
+    Matrice* matriceProduit = matrice1->multiplierMatriceParUnReel(10, "Matrice Produit");
 
-    Matrice* matriceDifference = matrice1->soustraireMatrice(matrice2, "Matrice Différence");
-
-    matrice1->afficherMatrice(3);
-    matrice2->afficherMatrice(3);
-    matriceDifference->afficherMatrice(3);
+    matrice1->afficherMatrice(4);
+    matriceProduit->afficherMatrice(4);
 
     delete matrice1;
-    delete matrice2;
-    delete matriceDifference;
+    delete matriceProduit;
 
     return 0;
 }

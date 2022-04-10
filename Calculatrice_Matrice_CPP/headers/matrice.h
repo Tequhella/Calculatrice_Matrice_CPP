@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.h                             */
-/* Numéro de version : 0.0.5                                 */
+/* Numéro de version : 0.0.8                                 */
 /* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -10,7 +10,7 @@
 #pragma once
 
 #include <iostream>
-
+#include <random>
 /* Enumération des différents type de matrice. */
 enum
 {
@@ -80,7 +80,15 @@ class Matrice
 		 */
 		Matrice* soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatriceSoustraite);
 		
-
+		/**
+		 * @brief 
+		 * Il multiplie la matrice par un nombre réel.
+		 * 
+		 * @param nb 
+		 * @param nomDeLaMatriceProduitReel 
+		 * @return Matrice* 
+		 */
+		Matrice* multiplierMatriceParUnReel(double nb, char* nomDeLaMatriceProduitReel);
         //=======================================================================================//
 
         /**
@@ -148,6 +156,8 @@ class Matrice
 		 * @return 1 si la modification a pu se faire, 0 sinon.
 		 */
 		uint8_t setDimY(uint8_t dimY);
+
+
 
 		
 	private:
