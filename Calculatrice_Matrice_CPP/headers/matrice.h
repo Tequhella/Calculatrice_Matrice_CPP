@@ -25,13 +25,13 @@ class Matrice
 {
 	public:
 		
-		/*
-		* Crée une matrice de dimensions aléatoire de 0 à 255, de valeurs aléatoires, et de nom aléatoire.
-		*/
+		/**
+		 * @brief Constructeur Matrice, crée une matrice de dimensions aléatoire de 0 à 255, de valeurs aléatoires, et de nom aléatoire.
+		 */
 		Matrice();
 
 		/**
-		 * Crée une matrice avec les dimensions données et la remplit selon le type.
+		 * @brief Constructeur Matrice, crée une matrice avec les dimensions données et la remplit selon le type.
 		 *
 		 * @param nomDeLaMatrice le nom de la matrice.
 		 * @param dimX le nombre de lignes dans la matrice.
@@ -47,21 +47,21 @@ class Matrice
         //=======================================================================================//
 
 		/**
-		 * Méthode afficherMatrice, imprime la matrice.
+		 * @brief Méthode afficherMatrice, imprime la matrice.
 		 *
 		 * @param format le nombre de caractères à afficher pour chaque élément.
 		 */
 		void afficherMatrice(uint8_t format);
 
 		/**
-		 * Méthode transposerMatrice, transpose la matrice.
+		 * @brief Méthode transposerMatrice, transpose la matrice.
 		 * 
 		 * @return la matrice transposée.
 		 */
 		Matrice* transposerMatrice();
 
 		/**
-		 * Méthode additionnerMatrice, additionne deux matrice.
+		 * @brief Méthode additionnerMatrice, additionne deux matrice.
 		 * 
 		 * @param matriceAdditionneur la matrice qui s'ajoutera à la matrice actuelle.
 		 * @param nomDeLaMatriceSomme le nom de la matrice issue de l'addition.
@@ -71,7 +71,7 @@ class Matrice
 		Matrice* additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLaMatriceSomme);
 
 		/**
-		 * Méthode soustraireMatrice, soustrait deux matrice.
+		 * @brief Méthode soustraireMatrice, soustrait deux matrice.
 		 * 
 		 * @param matriceSoustrait la matrice qui sera soustraite à la matrice actuelle.
 		 * @param nomDeLaMatriceSoustraite le nom de la matrice issue de la soustraction.
@@ -81,36 +81,46 @@ class Matrice
 		Matrice* soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatriceSoustraite);
 		
 		/**
-		 * @brief 
-		 * Il multiplie la matrice par un nombre réel.
+		 * @brief Méthode multiplierMatriceParUnReel, multiplie la matrice par un nombre réel.
 		 * 
 		 * @param nb 
 		 * @param nomDeLaMatriceProduitReel 
-		 * @return Matrice* 
+		 * @return la matrice issue de la multiplication 
 		 */
 		Matrice* multiplierMatriceParUnReel(double nb, char* nomDeLaMatriceProduitReel);
+
+		/**
+		 * @brief Méthode multiplierMatriceParUneMatrice, multiplie la matrice par une autre matrice.
+		 * 
+		 * @param matriceMultiplieur la matrice qui sera multipliée à la matrice actuelle.
+		 * @param nomDeLaMatriceProduit la matrice issue de la multiplication.
+		 * 
+		 * @return la matrice issue de la multiplication.
+		 */
+		Matrice* multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, char* nomDeLaMatriceProduit);
+
         //=======================================================================================//
 
         /**
-         * Méthode getDimX, retourne la dimension en X de la matrice.
+         * @brief Méthode getDimX, retourne la dimension en X de la matrice.
          * 
          */
         uint8_t getDimX();
 
         /**
-         * Méthode getDimY, retourne la dimension en Y de la matrice
+         * @brief Méthode getDimY, retourne la dimension en Y de la matrice
          * 
          */
         uint8_t getDimY();
 
         /**
-         * Méthode getNomDeLaMatrice, retourne le nom de la matrice
+         * @brief Méthode getNomDeLaMatrice, retourne le nom de la matrice
          * 
          */
         char* getNomDeLaMatrice();
 
 		/**
-		 * Méthode getElement, retourne l'élément de la matrice à la position donnée.
+		 * @brief Méthode getElement, retourne l'élément de la matrice à la position donnée.
 		 *
 		 * @param x la position en X de l'élément à retourner.
 		 * @param y la position en Y de l'élément à retourner.
@@ -120,7 +130,7 @@ class Matrice
 		double getElement(uint8_t x, uint8_t y);
 
 		/**
-		 * Méthode setElement, modifie l'élément de la matrice à la position donnée.
+		 * @brief Méthode setElement, modifie l'élément de la matrice à la position donnée.
 		 *
 		 * @param x la position en X de l'élément à modifier.
 		 * @param y la position en Y de l'élément à modifier.
@@ -131,7 +141,7 @@ class Matrice
 		uint8_t setElement(uint8_t x, uint8_t y, double valeur);
 
 		/**
-		 * Méthode setNomDeLaMatrice, modifie le nom de la matrice.
+		 * @brief Méthode setNomDeLaMatrice, modifie le nom de la matrice.
 		 *
 		 * @param nomDeLaMatrice le nouveau nom de la matrice.
 		 *
@@ -140,7 +150,7 @@ class Matrice
 		uint8_t setNomDeLaMatrice(char* nomDeLaMatrice);
 
 		/**
-		 * Méthode setDimX, modifie la dimension en X de la matrice en créant une nouvelle matrice.
+		 * @brief Méthode setDimX, modifie la dimension en X de la matrice en créant une nouvelle matrice.
 		 *
 		 * @param dimX la nouvelle dimension en X de la matrice.
 		 *
@@ -149,7 +159,7 @@ class Matrice
 		uint8_t setDimX(uint8_t dimX);
 
 		/**
-		 * Méthode setDimY, modifie la dimension en Y de la matrice en créant une nouvelle matrice.
+		 * @brief Méthode setDimY, modifie la dimension en Y de la matrice en créant une nouvelle matrice.
 		 *
 		 * @param dimY la nouvelle dimension en Y de la matrice.
 		 *

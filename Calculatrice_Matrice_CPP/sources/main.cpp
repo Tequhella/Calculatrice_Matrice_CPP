@@ -12,13 +12,16 @@
 
 int main()
 {
-    Matrice* matrice1 = new Matrice();
-    Matrice* matriceProduit = matrice1->multiplierMatriceParUnReel(10, "Matrice Produit");
+    Matrice* matrice1 = new Matrice("Matrice 1", 3, 3, ALEATOIRE);
+    Matrice* matrice2 = new Matrice("Matrice 2", 2, 3, ALEATOIRE);
+    Matrice* matriceProduit = matrice1->multiplierMatriceParUneMatrice(matrice2, "Matrice Produit");
 
     matrice1->afficherMatrice(4);
-    matriceProduit->afficherMatrice(4);
+    matrice2->afficherMatrice(4);
+    matriceProduit->afficherMatrice(6);
 
     delete matrice1;
+    delete matrice2;
     delete matriceProduit;
 
     return 0;

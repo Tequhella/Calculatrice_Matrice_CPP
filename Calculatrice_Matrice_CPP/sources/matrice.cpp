@@ -9,8 +9,8 @@
 
 #include "../headers/matrice.h"
 
-/*
- * Crée une matrice de dimensions aléatoire de 0 à 255, de valeurs aléatoires, et de nom aléatoire.
+/**
+ * @brief Constructeur Matrice, crée une matrice de dimensions aléatoire de 0 à 255, de valeurs aléatoires, et de nom aléatoire.
  */
 Matrice::Matrice()
 {
@@ -46,7 +46,7 @@ Matrice::Matrice()
 }
 
 /**
- * Crée une matrice avec les dimensions données et la remplit selon le type
+ * @brief Constructeur Matrice, crée une matrice avec les dimensions données et la remplit selon le type.
  *
  * @param nomDeLaMatrice le nom de la matrice
  * @param dimX le nombre de lignes dans la matrice
@@ -55,7 +55,7 @@ Matrice::Matrice()
  *
  * @return Un pointeur vers une structure Matrice nouvellement allouée.
  */
-Matrice::Matrice(char *nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type) : dimX(dimX), dimY(dimY), nomDeLaMatrice(nomDeLaMatrice)
+Matrice::Matrice(char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type) : dimX(dimX), dimY(dimY), nomDeLaMatrice(nomDeLaMatrice)
 {
     std::random_device rd;
     std::default_random_engine eng(rd());
@@ -117,7 +117,7 @@ Matrice::~Matrice()
 //=======================================================================================//
 
 /**
- * Méthode afficherMatrice, imprime la matrice
+ * @brief Méthode afficherMatrice, imprime la matrice.
  *
  * @param format le nombre de caractères à afficher pour chaque élément.
  */
@@ -137,11 +137,11 @@ void Matrice::afficherMatrice(uint8_t format)
 }
 
 /**
- * Méthode transposerMatrice, transpose la matrice
+ * @brief Méthode transposerMatrice, transpose la matrice.
  *
- * @return la matrice transposée
+ * @return la matrice transposée.
  */
-Matrice *Matrice::transposerMatrice()
+Matrice* Matrice::transposerMatrice()
 {
     Matrice *matriceTransposee = new Matrice("Matrice Transposée", this->dimX, this->dimY, NULLE);
 
@@ -151,7 +151,7 @@ Matrice *Matrice::transposerMatrice()
         {
             for (int j = 0; j < this->dimX; j++)
             {
-                matriceTransposee->setElement(j, i, this->getElement(j, i));
+                matriceTransposee->setElement(j, i, this->getElement(i, j));
             }
         }
 
@@ -165,14 +165,14 @@ Matrice *Matrice::transposerMatrice()
 }
 
 /**
- * Méthode additionnerMatrice, additionne deux matrice.
+ * @brief Méthode additionnerMatrice, additionne deux matrice.
  *
  * @param matriceAdditionneur la matrice qui s'ajoutera à la matrice actuelle.
  * @param nomDeLaMatriceSomme le nom de la matrice issue de l'addition.
  *
  * @return la matrice issue de l'addition.
  */
-Matrice *Matrice::additionnerMatrice(Matrice *matriceAdditionneur, char *nomDeLaMatriceSomme)
+Matrice* Matrice::additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLaMatriceSomme)
 {
     if (this->dimX == matriceAdditionneur->getDimX() && this->dimY == matriceAdditionneur->getDimY())
     {
@@ -204,14 +204,14 @@ Matrice *Matrice::additionnerMatrice(Matrice *matriceAdditionneur, char *nomDeLa
 }
 
 /**
- * Méthode soustraireMatrice, soustrait deux matrice.
+ * @brief Méthode soustraireMatrice, soustrait deux matrice.
  *
  * @param matriceSoustrait la matrice qui sera soustraite à la matrice actuelle.
  * @param nomDeLaMatriceSoustraite le nom de la matrice issue de la soustraction.
  *
  * @return la matrice issue de la soustraction.
  */
-Matrice *Matrice::soustraireMatrice(Matrice *matriceSoustrait, char *nomDeLaMatriceSoustraite)
+Matrice *Matrice::soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatriceSoustraite)
 {
     if (this->dimX == matriceSoustrait->getDimX() && this->dimY == matriceSoustrait->getDimY())
     {
@@ -243,16 +243,15 @@ Matrice *Matrice::soustraireMatrice(Matrice *matriceSoustrait, char *nomDeLaMatr
 }
 
 /**
- * Il multiplie une matrice par un nombre réel
+ * @brief Méthode multiplierMatriceParUnReel, multiplie la matrice par un nombre réel.
  * 
- * @param nb le nombre pour multiplier la matrice
- * @param nomDeLaMatriceProduitReel le nom de la matrice qui sera renvoyée
- * 
- * @return Un pointeur vers un objet Matrice.
+ * @param nb 
+ * @param nomDeLaMatriceProduitReel 
+ * @return la matrice issue de la multiplication.
  */
-Matrice* Matrice::multiplierMatriceParUnReel(double nb, char *nomDeLaMatriceProduitReel)
+Matrice* Matrice::multiplierMatriceParUnReel(double nb, char* nomDeLaMatriceProduitReel)
 {
-    Matrice *matriceProduitReel = new Matrice(nomDeLaMatriceProduitReel, this->dimX, this->dimY, NULLE);
+    Matrice* matriceProduitReel = new Matrice(nomDeLaMatriceProduitReel, this->dimX, this->dimY, NULLE);
     if (matriceProduitReel)
     {
         for (int i = 0; i < this->getDimY(); i++)
@@ -269,10 +268,46 @@ Matrice* Matrice::multiplierMatriceParUnReel(double nb, char *nomDeLaMatriceProd
         return nullptr;
     }
 }
+
+/**
+ * @brief Méthode multiplierMatriceParUneMatrice, multiplie la matrice par une autre matrice.
+ * 
+ * @param matriceMultiplieur la matrice qui sera multipliée à la matrice actuelle.
+ * @param nomDeLaMatriceProduit la matrice issue de la multiplication.
+ * 
+ * @return la matrice issue de la multiplication.
+ */
+Matrice* Matrice::multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, char* nomDeLaMatriceProduit)
+{
+    Matrice* matriceProduit = new Matrice(nomDeLaMatriceProduit, matriceMultiplieur->dimX, matriceMultiplieur->dimY, NULLE);
+    if (matriceProduit)
+    {
+        for (int i = 0; i < this->dimY; i++)
+        {
+            for (int j = 0; j < matriceMultiplieur->dimX; j++)
+            {
+                double somme = 0;
+                for (int k = 0; k < matriceMultiplieur->dimY; k++)
+                {
+                    somme += this->elements[this->dimX * i + k] * matriceMultiplieur->getElement(j, k);
+                }
+                matriceProduit->setElement(j, i, somme);
+            }
+        }
+        return matriceProduit;
+    }
+    else
+    {
+        cerr << "Erreur d'allocation de la matrice" << endl;
+        return nullptr;
+    }
+}
+
+
 //=======================================================================================//
 
 /**
- * Méthode getDimX, retourne la dimension en X de la matrice
+ * @brief Méthode getDimX, retourne la dimension en X de la matrice.
  *
  */
 uint8_t Matrice::getDimX()
@@ -281,7 +316,7 @@ uint8_t Matrice::getDimX()
 }
 
 /**
- * Méthode getDimY, retourne la dimension en Y de la matrice
+ * @brief Méthode getDimY, retourne la dimension en Y de la matrice.
  *
  */
 uint8_t Matrice::getDimY()
@@ -290,7 +325,7 @@ uint8_t Matrice::getDimY()
 }
 
 /**
- * Méthode getNomDeLaMatrice, retourne le nom de la matrice
+ * @brief Méthode getNomDeLaMatrice, retourne le nom de la matrice.
  *
  */
 char *Matrice::getNomDeLaMatrice()
@@ -299,12 +334,12 @@ char *Matrice::getNomDeLaMatrice()
 }
 
 /**
- * Méthode getElement, retourne l'élément de la matrice à la position donnée
+ * @brief Méthode getElement, retourne l'élément de la matrice à la position donnée.
  *
- * @param x la position en X de l'élément à retourner
- * @param y la position en Y de l'élément à retourner
+ * @param x la position en X de l'élément à retourner.
+ * @param y la position en Y de l'élément à retourner.
  *
- * @return l'élément de la matrice à la position donnée
+ * @return l'élément de la matrice à la position donnée.
  */
 double Matrice::getElement(uint8_t x, uint8_t y)
 {
@@ -317,13 +352,13 @@ double Matrice::getElement(uint8_t x, uint8_t y)
     }
 }
 /**
- * Méthode setElement, modifie l'élément de la matrice à la position donnée
+ * @brief Méthode setElement, modifie l'élément de la matrice à la position donnée.
  *
- * @param x la position en X de l'élément à modifier
- * @param y la position en Y de l'élément à modifier
- * @param valeur la nouvelle valeur de l'élément à modifier
+ * @param x la position en X de l'élément à modifier.
+ * @param y la position en Y de l'élément à modifier.
+ * @param valeur la nouvelle valeur de l'élément à modifier.
  *
- * @return 2 si les coordonnées sont invalides, 1 si la modification a pu se faire, 0 sinon
+ * @return 2 si les coordonnées sont invalides, 1 si la modification a pu se faire, 0 sinon.
  */
 uint8_t Matrice::setElement(uint8_t x, uint8_t y, double valeur)
 {
@@ -331,38 +366,33 @@ uint8_t Matrice::setElement(uint8_t x, uint8_t y, double valeur)
     {
         this->elements[this->dimX * y + x] = valeur;
 
-        if (this->elements[this->dimX * y + x] == valeur) /*--->*/
-            return 1;
-        else /*--->*/
-            return 0;
+        if (this->elements[this->dimX * y + x] == valeur) /*--->*/ return 1;
+        else /*--->*/ return 0;
     }
-    else /*--->*/
-        return 2;
+    else /*--->*/ return 2;
 }
 
 /**
- * Méthode setNomDeLaMatrice, modifie le nom de la matrice
+ * @brief Méthode setNomDeLaMatrice, modifie le nom de la matrice.
  *
- * @param nomDeLaMatrice le nouveau nom de la matrice
+ * @param nomDeLaMatrice le nouveau nom de la matrice.
  *
- * @return 1 si la modification a pu se faire, 0 sinon
+ * @return 1 si la modification a pu se faire, 0 sinon.
  */
-uint8_t Matrice::setNomDeLaMatrice(char *nomDeLaMatrice)
+uint8_t Matrice::setNomDeLaMatrice(char* nomDeLaMatrice)
 {
     this->nomDeLaMatrice = nomDeLaMatrice;
 
-    if (this->nomDeLaMatrice == nomDeLaMatrice) /*--->*/
-        return 1;
-    else /*--->*/
-        return 0;
+    if (this->nomDeLaMatrice == nomDeLaMatrice) /*--->*/ return 1;
+    else /*--->*/ return 0;
 }
 
 /**
- * Méthode setDimX, modifie la dimension en X de la matrice en créant une nouvelle matrice
+ * @brief Méthode setDimX, modifie la dimension en X de la matrice en créant une nouvelle matrice.
  *
- * @param dimX la nouvelle dimension en X de la matrice
+ * @param dimX la nouvelle dimension en X de la matrice.
  *
- * @return 1 si la modification a pu se faire, 0 sinon
+ * @return 1 si la modification a pu se faire, 0 sinon.
  */
 uint8_t Matrice::setDimX(uint8_t dimX)
 {
@@ -389,10 +419,8 @@ uint8_t Matrice::setDimX(uint8_t dimX)
         this->elements = elements;
         this->dimX = dimX;
 
-        if (this->dimX == dimX) /*--->*/
-            return 1;
-        else /*--->*/
-            return 0;
+        if (this->dimX == dimX) /*--->*/ return 1;
+        else /*--->*/ return 0;
     }
     else
     {
@@ -403,7 +431,7 @@ uint8_t Matrice::setDimX(uint8_t dimX)
 
 
 /**
- * Méthode setDimY, modifie la dimension en Y de la matrice en créant une nouvelle matrice
+ * @brief Méthode setDimY, modifie la dimension en Y de la matrice en créant une nouvelle matrice
  *
  * @param dimY la nouvelle dimension en Y de la matrice
  *
@@ -434,10 +462,8 @@ uint8_t Matrice::setDimY(uint8_t dimY)
         this->elements = elements;
         this->dimY = dimY;
 
-        if (this->dimY == dimY) /*--->*/
-            return 1;
-        else /*--->*/
-            return 0;
+        if (this->dimY == dimY) /*--->*/ return 1;
+        else /*--->*/ return 0;
     }
     else
     {
