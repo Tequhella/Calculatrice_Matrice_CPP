@@ -242,7 +242,15 @@ Matrice *Matrice::soustraireMatrice(Matrice *matriceSoustrait, char *nomDeLaMatr
     }
 }
 
-Matrice *Matrice::multiplierMatriceParUnReel(double nb, char *nomDeLaMatriceProduitReel)
+/**
+ * Il multiplie une matrice par un nombre réel
+ * 
+ * @param nb le nombre pour multiplier la matrice
+ * @param nomDeLaMatriceProduitReel le nom de la matrice qui sera renvoyée
+ * 
+ * @return Un pointeur vers un objet Matrice.
+ */
+Matrice* Matrice::multiplierMatriceParUnReel(double nb, char *nomDeLaMatriceProduitReel)
 {
     Matrice *matriceProduitReel = new Matrice(nomDeLaMatriceProduitReel, this->dimX, this->dimY, NULLE);
     if (matriceProduitReel)
