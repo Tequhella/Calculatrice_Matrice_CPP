@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.cpp                           */
-/* Numéro de version : 0.0.5                                 */
+/* Numéro de version : 0.0.8                                 */
 /* Date              : 07/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -10,15 +10,24 @@
 #include "../headers/matrice.h"
 
 /*
-* Crée une matrice de dimensions aléatoire de 0 à 255, de valeurs aléatoires, et de nom aléatoire.
-*/
+ * Crée une matrice de dimensions aléatoire de 0 à 255, de valeurs aléatoires, et de nom aléatoire.
+ */
 Matrice::Matrice()
 {
-    srand(time(NULL));
-	this->dimX = rand() % 20;
-	this->dimY = rand() % 20;
-	this->nomDeLaMatrice = "Matrice Hasard";
-	this->elements = new double[this->dimX * this->dimY];
+
+    std::random_device rd;
+    std::default_random_engine eng(rd());
+    std::uniform_int_distribution<uint8_t> distr(1, 20);
+    std::uniform_int_distribution<uint8_t> distr2(1, 100);
+
+    this->dimX = distr(eng);
+    this->dimY = distr(eng);
+
+    cout << "DimX = " << (int)dimX << endl;
+    cout << "DimY = " << (int)dimY << endl;
+
+    this->nomDeLaMatrice = "Matrice Hasard";
+    this->elements = new double[this->dimX * this->dimY];
 
     if (this->elements)
     {
@@ -26,7 +35,7 @@ Matrice::Matrice()
         {
             for (int j = 0; j < this->dimX; j++)
             {
-                this->elements[this->dimX * i + j] = rand() % 100;
+                this->setElement(j, i, distr2(eng));
             }
         }
     }
@@ -46,48 +55,52 @@ Matrice::Matrice()
  *
  * @return Un pointeur vers une structure Matrice nouvellement allouée.
  */
-Matrice::Matrice(char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type) : dimX(dimX), dimY(dimY), nomDeLaMatrice(nomDeLaMatrice)
+Matrice::Matrice(char *nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type) : dimX(dimX), dimY(dimY), nomDeLaMatrice(nomDeLaMatrice)
 {
+    std::random_device rd;
+    std::default_random_engine eng(rd());
+    std::uniform_int_distribution<uint8_t> distr(1, 100);
+
     this->elements = new double[this->dimX * this->dimY];
 
     if (this->elements)
     {
         switch (type)
         {
-            case NULLE:
-                for (int i = 0; i < this->dimY; i++)
+        case NULLE:
+            for (int i = 0; i < this->dimY; i++)
+            {
+                for (int j = 0; j < this->dimX; j++)
                 {
-                    for (int j = 0; j < this->dimX; j++)
+                    this->setElement(j, i, 0);
+                }
+            }
+            break;
+        case IDENTITE:
+            for (int i = 0; i < this->dimY; i++)
+            {
+                for (int j = 0; j < this->dimX; j++)
+                {
+                    if (i == j)
                     {
-                        this->elements[this->dimX * i + j] = 0;
+                        this->setElement(j, i, 1);
+                    }
+                    else
+                    {
+                        this->setElement(j, i, 0);
                     }
                 }
-                break;
-            case IDENTITE:
-                for (int i = 0; i < this->dimY; i++)
+            }
+            break;
+        case ALEATOIRE:
+            for (int i = 0; i < this->dimY; i++)
+            {
+                for (int j = 0; j < this->dimX; j++)
                 {
-                    for (int j = 0; j < this->dimX; j++)
-                    {
-                        if (i == j)
-                        {
-                            this->elements[this->dimX * i + j] = 1;
-                        }
-                        else
-                        {
-                            this->elements[this->dimX * i + j] = 0;
-                        }
-                    }
+                    this->setElement(j, i, distr(eng));
                 }
-                break;
-            case ALEATOIRE:
-                for (int i = 0; i < this->dimY; i++)
-                {
-                    for (int j = 0; j < this->dimX; j++)
-                    {
-                        this->elements[this->dimX * i + j] = rand() % 100;
-                    }
-                }
-                break;
+            }
+            break;
         }
     }
     else
@@ -104,33 +117,33 @@ Matrice::~Matrice()
 //=======================================================================================//
 
 /**
-* Méthode afficherMatrice, imprime la matrice
-*
-* @param format le nombre de caractères à afficher pour chaque élément.
-*/
+ * Méthode afficherMatrice, imprime la matrice
+ *
+ * @param format le nombre de caractères à afficher pour chaque élément.
+ */
 void Matrice::afficherMatrice(uint8_t format)
 {
     cout.precision(format);
-	cout << this->nomDeLaMatrice << endl;
+    cout << endl << this->nomDeLaMatrice << endl;
 
-	for (int i = 0; i < this->dimY; i++)
-	{
-		for (int j = 0; j < this->dimX; j++)
-		{
-			cout << this->elements[this->dimX * i + j] << " ";
-		}
-		cout << endl;
-	}
+    for (int i = 0; i < this->dimY; i++)
+    {
+        for (int j = 0; j < this->dimX; j++)
+        {
+            cout << this->getElement(j, i) << " ";
+        }
+        cout << endl;
+    }
 }
 
 /**
  * Méthode transposerMatrice, transpose la matrice
- * 
+ *
  * @return la matrice transposée
  */
-Matrice* Matrice::transposerMatrice()
+Matrice *Matrice::transposerMatrice()
 {
-    Matrice* matriceTransposee = new Matrice("Matrice Transposée", this->dimX, this->dimY, NULLE);
+    Matrice *matriceTransposee = new Matrice("Matrice Transposée", this->dimX, this->dimY, NULLE);
 
     if (matriceTransposee)
     {
@@ -138,7 +151,7 @@ Matrice* Matrice::transposerMatrice()
         {
             for (int j = 0; j < this->dimX; j++)
             {
-                matriceTransposee->setElement(j, i, this->getElement(i, j));
+                matriceTransposee->setElement(j, i, this->getElement(j, i));
             }
         }
 
@@ -153,17 +166,17 @@ Matrice* Matrice::transposerMatrice()
 
 /**
  * Méthode additionnerMatrice, additionne deux matrice.
- * 
+ *
  * @param matriceAdditionneur la matrice qui s'ajoutera à la matrice actuelle.
  * @param nomDeLaMatriceSomme le nom de la matrice issue de l'addition.
- * 
+ *
  * @return la matrice issue de l'addition.
  */
-Matrice* Matrice::additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLaMatriceSomme)
+Matrice *Matrice::additionnerMatrice(Matrice *matriceAdditionneur, char *nomDeLaMatriceSomme)
 {
     if (this->dimX == matriceAdditionneur->getDimX() && this->dimY == matriceAdditionneur->getDimY())
     {
-        Matrice* matriceSomme = new Matrice(nomDeLaMatriceSomme, this->dimX, this->dimY, NULLE);
+        Matrice *matriceSomme = new Matrice(nomDeLaMatriceSomme, this->dimX, this->dimY, NULLE);
 
         if (matriceSomme)
         {
@@ -192,17 +205,17 @@ Matrice* Matrice::additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLa
 
 /**
  * Méthode soustraireMatrice, soustrait deux matrice.
- * 
+ *
  * @param matriceSoustrait la matrice qui sera soustraite à la matrice actuelle.
  * @param nomDeLaMatriceSoustraite le nom de la matrice issue de la soustraction.
- * 
+ *
  * @return la matrice issue de la soustraction.
  */
-Matrice* Matrice::soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatriceSoustraite)
+Matrice *Matrice::soustraireMatrice(Matrice *matriceSoustrait, char *nomDeLaMatriceSoustraite)
 {
     if (this->dimX == matriceSoustrait->getDimX() && this->dimY == matriceSoustrait->getDimY())
     {
-        Matrice* matriceSoustraite = new Matrice(nomDeLaMatriceSoustraite, this->dimX, this->dimY, NULLE);
+        Matrice *matriceSoustraite = new Matrice(nomDeLaMatriceSoustraite, this->dimX, this->dimY, NULLE);
 
         if (matriceSoustraite)
         {
@@ -229,11 +242,30 @@ Matrice* Matrice::soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatr
     }
 }
 
+Matrice *Matrice::multiplierMatriceParUnReel(double nb, char *nomDeLaMatriceProduitReel)
+{
+    Matrice *matriceProduitReel = new Matrice(nomDeLaMatriceProduitReel, this->dimX, this->dimY, NULLE);
+    if (matriceProduitReel)
+    {
+        for (int i = 0; i < this->getDimY(); i++)
+        {
+            for (int j = 0; j < this->getDimX(); j++)
+            {
+                matriceProduitReel->elements[dimX * i + j] = this->getElement(j, i) * nb;
+            }
+        }
+        return matriceProduitReel;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
 //=======================================================================================//
 
 /**
  * Méthode getDimX, retourne la dimension en X de la matrice
- * 
+ *
  */
 uint8_t Matrice::getDimX()
 {
@@ -242,7 +274,7 @@ uint8_t Matrice::getDimX()
 
 /**
  * Méthode getDimY, retourne la dimension en Y de la matrice
- * 
+ *
  */
 uint8_t Matrice::getDimY()
 {
@@ -251,9 +283,9 @@ uint8_t Matrice::getDimY()
 
 /**
  * Méthode getNomDeLaMatrice, retourne le nom de la matrice
- * 
+ *
  */
-char* Matrice::getNomDeLaMatrice()
+char *Matrice::getNomDeLaMatrice()
 {
     return this->nomDeLaMatrice;
 }
@@ -268,7 +300,8 @@ char* Matrice::getNomDeLaMatrice()
  */
 double Matrice::getElement(uint8_t x, uint8_t y)
 {
-    if (x < this->dimX && y < this->dimY) /*--->*/ return this->elements[this->dimX * y + x];
+    if (x < this->dimX && y < this->dimY) /*--->*/
+        return this->elements[this->dimX * y + x];
     else
     {
         cerr << "Erreur : la position est invalide" << endl;
@@ -290,10 +323,13 @@ uint8_t Matrice::setElement(uint8_t x, uint8_t y, double valeur)
     {
         this->elements[this->dimX * y + x] = valeur;
 
-        if (this->elements[this->dimX * y + x] == valeur) /*--->*/ return 1;
-        else /*--->*/ return 0;
+        if (this->elements[this->dimX * y + x] == valeur) /*--->*/
+            return 1;
+        else /*--->*/
+            return 0;
     }
-    else /*--->*/ return 2;
+    else /*--->*/
+        return 2;
 }
 
 /**
@@ -303,12 +339,14 @@ uint8_t Matrice::setElement(uint8_t x, uint8_t y, double valeur)
  *
  * @return 1 si la modification a pu se faire, 0 sinon
  */
-uint8_t Matrice::setNomDeLaMatrice(char* nomDeLaMatrice)
+uint8_t Matrice::setNomDeLaMatrice(char *nomDeLaMatrice)
 {
     this->nomDeLaMatrice = nomDeLaMatrice;
 
-    if (this->nomDeLaMatrice == nomDeLaMatrice) /*--->*/ return 1;
-    else /*--->*/ return 0;
+    if (this->nomDeLaMatrice == nomDeLaMatrice) /*--->*/
+        return 1;
+    else /*--->*/
+        return 0;
 }
 
 /**
@@ -320,8 +358,8 @@ uint8_t Matrice::setNomDeLaMatrice(char* nomDeLaMatrice)
  */
 uint8_t Matrice::setDimX(uint8_t dimX)
 {
-    double* elements = new double[dimX * this->dimY];
-    
+    double *elements = new double[dimX * this->dimY];
+
     if (elements)
     {
         for (int i = 0; i < this->dimY; i++)
@@ -330,7 +368,7 @@ uint8_t Matrice::setDimX(uint8_t dimX)
             {
                 if (j < this->dimX)
                 {
-                    elements[dimX * i + j] = this->elements[this->dimX * i + j];
+                    elements[dimX * i + j] = this->getElement(j, i);
                 }
                 else
                 {
@@ -343,8 +381,10 @@ uint8_t Matrice::setDimX(uint8_t dimX)
         this->elements = elements;
         this->dimX = dimX;
 
-        if (this->dimX == dimX) /*--->*/ return 1;
-        else /*--->*/ return 0;
+        if (this->dimX == dimX) /*--->*/
+            return 1;
+        else /*--->*/
+            return 0;
     }
     else
     {
@@ -363,8 +403,8 @@ uint8_t Matrice::setDimX(uint8_t dimX)
  */
 uint8_t Matrice::setDimY(uint8_t dimY)
 {
-    double* elements = new double[this->dimX * dimY];
-    
+    double *elements = new double[this->dimX * dimY];
+
     if (elements)
     {
         for (int i = 0; i < dimY; i++)
@@ -373,7 +413,7 @@ uint8_t Matrice::setDimY(uint8_t dimY)
             {
                 if (i < this->dimY)
                 {
-                    elements[this->dimX * i + j] = this->elements[this->dimX * i + j];
+                    elements[this->dimX * i + j] = this->getElement(j, i);
                 }
                 else
                 {
@@ -386,8 +426,10 @@ uint8_t Matrice::setDimY(uint8_t dimY)
         this->elements = elements;
         this->dimY = dimY;
 
-        if (this->dimY == dimY) /*--->*/ return 1;
-        else /*--->*/ return 0;
+        if (this->dimY == dimY) /*--->*/
+            return 1;
+        else /*--->*/
+            return 0;
     }
     else
     {
