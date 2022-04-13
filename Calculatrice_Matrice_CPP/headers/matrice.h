@@ -99,6 +99,24 @@ class Matrice
 		 */
 		Matrice* multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, char* nomDeLaMatriceProduit);
 
+		/**
+		 * @brief sousMatrice, retourne une sous-matrice de la matrice.
+		 * 
+		 * @param ligneDebut la ligne de début de la sous-matrice.
+		 * @param colonneDebut la colonne de début de la sous-matrice.
+		 * @param nomDeLaMatriceSousMatrice le nom de la sous-matrice.
+		 * 
+		 * @return la sous-matrice.
+		 */
+		Matrice* sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, char* nomDeLaMatriceSousMatrice);
+
+		/**
+		 * @brief calculerDeterminant, calcule le déterminant de la matrice.
+		 * 
+		 * @return le déterminant de la matrice.
+		 */
+		double calculerDeterminant();
+
         //=======================================================================================//
 
         /**

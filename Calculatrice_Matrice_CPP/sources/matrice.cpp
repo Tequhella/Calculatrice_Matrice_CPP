@@ -303,6 +303,91 @@ Matrice* Matrice::multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, ch
     }
 }
 
+/**
+ * @brief sousMatrice, retourne une sous-matrice de la matrice.
+ * 
+ * @param ligneDebut la ligne de début de la sous-matrice.
+ * @param colonneDebut la colonne de début de la sous-matrice.
+ * @param nomDeLaMatriceSousMatrice le nom de la sous-matrice.
+ * 
+ * @return la sous-matrice.
+ */
+Matrice* Matrice::sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, char* nomDeLaMatriceSousMatrice)
+{
+    Matrice* matriceSousMatrice = new Matrice(nomDeLaMatriceSousMatrice, this->dimX - 1, this->dimY - 1, NULLE);
+    if (matriceSousMatrice)
+    {
+        uint8_t k = 0;
+        for (int i = 0; i < this->dimY + 1; i++)
+        {
+            for (int j = 0; j < this->dimX + 1; j++)
+            {
+                if (i != ligneDebut && j != colonneDebut)
+                {
+                    if (matriceSousMatrice->setElement(k % this->dimX, k / this->dimY, this->getElement(j, i)) == 2)
+                    {
+                        cerr << "Erreur : la position du setter est invalide" << endl;
+                    }
+                    k++;
+                }
+            }
+        }
+        matriceSousMatrice->afficherMatrice(4);
+        return matriceSousMatrice;
+    }
+    else
+    {
+        cerr << "Erreur d'allocation de la matrice" << endl;
+        return nullptr;
+    }
+}
+
+/**
+ * @brief calculerDeterminant, calcule le déterminant de la matrice.
+ * 
+ * @return le déterminant de la matrice.
+ */
+double Matrice::calculerDeterminant()
+{
+    if (this->dimX == this->dimY)
+    {
+        double determinant = 0;
+        if (this->dimX == 1)
+        {
+            return this->getElement(0, 0);
+        }
+        else if (this->dimX == 2)
+        {
+            return this->getElement(0, 0) * this->getElement(1, 1) - this->getElement(0, 1) * this->getElement(1, 0);
+        }
+        else
+        {
+            for (int i = 0; i < this->dimY; i++)
+            {
+                Matrice* matriceSousMatrice = this->sousMatrice(i, 0, "sousMatrice");
+                if (matriceSousMatrice)
+                {
+                    if (i % 2 == 0) /*--->*/ determinant = determinant + this->elements[i] * matriceSousMatrice->calculerDeterminant();
+                    else /*-------------->*/ determinant = determinant - this->elements[i] * matriceSousMatrice->calculerDeterminant();
+                    
+                    delete matriceSousMatrice;
+                }
+                else
+                {
+                    cerr << "Erreur d'allocation de la matrice" << endl;
+                    return 0;
+                }
+            }
+            return determinant;
+            
+        }
+    }
+    else
+    {
+        cerr << "La matrice n'est pas carrée" << endl;
+        return 0;
+    }
+}
 
 //=======================================================================================//
 
@@ -343,11 +428,10 @@ char *Matrice::getNomDeLaMatrice()
  */
 double Matrice::getElement(uint8_t x, uint8_t y)
 {
-    if (x < this->dimX && y < this->dimY) /*--->*/
-        return this->elements[this->dimX * y + x];
+    if (x < this->dimX && y < this->dimY) /*--->*/ return this->elements[this->dimX * y + x];
     else
     {
-        cerr << "Erreur : la position est invalide" << endl;
+        cerr << "Erreur : la position du getter est invalide" << endl;
         return 0;
     }
 }

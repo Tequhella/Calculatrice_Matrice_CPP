@@ -12,17 +12,12 @@
 
 int main()
 {
-    Matrice* matrice1 = new Matrice("Matrice 1", 3, 3, ALEATOIRE);
-    Matrice* matrice2 = new Matrice("Matrice 2", 2, 3, ALEATOIRE);
-    Matrice* matriceProduit = matrice1->multiplierMatriceParUneMatrice(matrice2, "Matrice Produit");
+    Matrice* matrice = new Matrice("Matrice 1", 4, 4, ALEATOIRE);
+    matrice->afficherMatrice(10);
 
-    matrice1->afficherMatrice(4);
-    matrice2->afficherMatrice(4);
-    matriceProduit->afficherMatrice(6);
+    cout << matrice->calculerDeterminant() << endl;
 
-    delete matrice1;
-    delete matrice2;
-    delete matriceProduit;
+    delete matrice;
 
     return 0;
 }
