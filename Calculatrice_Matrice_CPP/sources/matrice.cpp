@@ -318,16 +318,13 @@ Matrice* Matrice::sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, char* no
     if (matriceSousMatrice)
     {
         uint8_t k = 0;
-        for (int i = 0; i < this->dimY + 1; i++)
+        for (int i = 0; i < this->dimY; i++)
         {
-            for (int j = 0; j < this->dimX + 1; j++)
+            for (int j = 0; j < this->dimX; j++)
             {
                 if (i != ligneDebut && j != colonneDebut)
                 {
-                    if (matriceSousMatrice->setElement(k % this->dimX, k / this->dimY, this->getElement(j, i)) == 2)
-                    {
-                        cerr << "Erreur : la position du setter est invalide" << endl;
-                    }
+                    matriceSousMatrice->setElement(k % matriceSousMatrice->dimX, k / matriceSousMatrice->dimY, this->getElement(j, i));
                     k++;
                 }
             }
@@ -362,7 +359,7 @@ double Matrice::calculerDeterminant()
         }
         else
         {
-            for (int i = 0; i < this->dimY; i++)
+            for (int i = 0; i < this->dimX; i++)
             {
                 Matrice* matriceSousMatrice = this->sousMatrice(i, 0, "sousMatrice");
                 if (matriceSousMatrice)
@@ -451,9 +448,17 @@ uint8_t Matrice::setElement(uint8_t x, uint8_t y, double valeur)
         this->elements[this->dimX * y + x] = valeur;
 
         if (this->elements[this->dimX * y + x] == valeur) /*--->*/ return 1;
-        else /*--->*/ return 0;
+        else
+        {
+            cerr << "Erreur : le changement de valeur ne s'est pas produit" << endl;
+            return 0;
+        }
     }
-    else /*--->*/ return 2;
+    else 
+    {
+        cerr << "Erreur : la position du setter est invalide" << endl;
+        return 2;
+    }
 }
 
 /**
