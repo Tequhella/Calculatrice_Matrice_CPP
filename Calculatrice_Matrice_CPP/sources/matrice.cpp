@@ -55,7 +55,7 @@ Matrice::Matrice()
  *
  * @return Un pointeur vers une structure Matrice nouvellement allouée.
  */
-Matrice::Matrice(char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type) : dimX(dimX), dimY(dimY), nomDeLaMatrice(nomDeLaMatrice)
+Matrice::Matrice(const char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type) : dimX(dimX), dimY(dimY), nomDeLaMatrice(nomDeLaMatrice)
 {
     std::random_device rd;
     std::default_random_engine eng(rd());
@@ -172,7 +172,7 @@ Matrice* Matrice::transposerMatrice()
  *
  * @return la matrice issue de l'addition.
  */
-Matrice* Matrice::additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLaMatriceSomme)
+Matrice* Matrice::additionnerMatrice(Matrice* matriceAdditionneur, const char* nomDeLaMatriceSomme)
 {
     if (this->dimX == matriceAdditionneur->getDimX() && this->dimY == matriceAdditionneur->getDimY())
     {
@@ -211,7 +211,7 @@ Matrice* Matrice::additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLa
  *
  * @return la matrice issue de la soustraction.
  */
-Matrice *Matrice::soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatriceSoustraite)
+Matrice *Matrice::soustraireMatrice(Matrice* matriceSoustrait, const char* nomDeLaMatriceSoustraite)
 {
     if (this->dimX == matriceSoustrait->getDimX() && this->dimY == matriceSoustrait->getDimY())
     {
@@ -249,7 +249,7 @@ Matrice *Matrice::soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatr
  * @param nomDeLaMatriceProduitReel 
  * @return la matrice issue de la multiplication.
  */
-Matrice* Matrice::multiplierMatriceParUnReel(double nb, char* nomDeLaMatriceProduitReel)
+Matrice* Matrice::multiplierMatriceParUnReel(double nb, const char* nomDeLaMatriceProduitReel)
 {
     Matrice* matriceProduitReel = new Matrice(nomDeLaMatriceProduitReel, this->dimX, this->dimY, NULLE);
     if (matriceProduitReel)
@@ -277,7 +277,7 @@ Matrice* Matrice::multiplierMatriceParUnReel(double nb, char* nomDeLaMatriceProd
  * 
  * @return la matrice issue de la multiplication.
  */
-Matrice* Matrice::multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, char* nomDeLaMatriceProduit)
+Matrice* Matrice::multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, const char* nomDeLaMatriceProduit)
 {
     Matrice* matriceProduit = new Matrice(nomDeLaMatriceProduit, matriceMultiplieur->dimX, matriceMultiplieur->dimY, NULLE);
     if (matriceProduit)
@@ -312,7 +312,7 @@ Matrice* Matrice::multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, ch
  * 
  * @return la sous-matrice.
  */
-Matrice* Matrice::sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, char* nomDeLaMatriceSousMatrice)
+Matrice* Matrice::sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, const char* nomDeLaMatriceSousMatrice)
 {
     Matrice* matriceSousMatrice = new Matrice(nomDeLaMatriceSousMatrice, this->dimX - 1, this->dimY - 1, NULLE);
     if (matriceSousMatrice)
@@ -410,7 +410,7 @@ uint8_t Matrice::getDimY()
  * @brief Méthode getNomDeLaMatrice, retourne le nom de la matrice.
  *
  */
-char *Matrice::getNomDeLaMatrice()
+const char *Matrice::getNomDeLaMatrice()
 {
     return this->nomDeLaMatrice;
 }
@@ -468,7 +468,7 @@ uint8_t Matrice::setElement(uint8_t x, uint8_t y, double valeur)
  *
  * @return 1 si la modification a pu se faire, 0 sinon.
  */
-uint8_t Matrice::setNomDeLaMatrice(char* nomDeLaMatrice)
+uint8_t Matrice::setNomDeLaMatrice(const char* nomDeLaMatrice)
 {
     this->nomDeLaMatrice = nomDeLaMatrice;
 

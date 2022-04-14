@@ -40,7 +40,7 @@ class Matrice
 		 *
 		 * @return Un pointeur vers une structure Matrice nouvellement allouée.
 		 */
-		Matrice(char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type);
+		Matrice(const char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t type);
 		
 		~Matrice();
 
@@ -68,7 +68,7 @@ class Matrice
 		 * 
 		 * @return la matrice issue de l'addition.
 		 */
-		Matrice* additionnerMatrice(Matrice* matriceAdditionneur, char* nomDeLaMatriceSomme);
+		Matrice* additionnerMatrice(Matrice* matriceAdditionneur, const char* nomDeLaMatriceSomme);
 
 		/**
 		 * @brief Méthode soustraireMatrice, soustrait deux matrice.
@@ -78,7 +78,7 @@ class Matrice
 		 * 
 		 * @return la matrice issue de la soustraction.
 		 */
-		Matrice* soustraireMatrice(Matrice* matriceSoustrait, char* nomDeLaMatriceSoustraite);
+		Matrice* soustraireMatrice(Matrice* matriceSoustrait, const char* nomDeLaMatriceSoustraite);
 		
 		/**
 		 * @brief Méthode multiplierMatriceParUnReel, multiplie la matrice par un nombre réel.
@@ -87,7 +87,7 @@ class Matrice
 		 * @param nomDeLaMatriceProduitReel 
 		 * @return la matrice issue de la multiplication 
 		 */
-		Matrice* multiplierMatriceParUnReel(double nb, char* nomDeLaMatriceProduitReel);
+		Matrice* multiplierMatriceParUnReel(double nb, const char* nomDeLaMatriceProduitReel);
 
 		/**
 		 * @brief Méthode multiplierMatriceParUneMatrice, multiplie la matrice par une autre matrice.
@@ -97,7 +97,7 @@ class Matrice
 		 * 
 		 * @return la matrice issue de la multiplication.
 		 */
-		Matrice* multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, char* nomDeLaMatriceProduit);
+		Matrice* multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, const char* nomDeLaMatriceProduit);
 
 		/**
 		 * @brief sousMatrice, retourne une sous-matrice de la matrice.
@@ -108,7 +108,7 @@ class Matrice
 		 * 
 		 * @return la sous-matrice.
 		 */
-		Matrice* sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, char* nomDeLaMatriceSousMatrice);
+		Matrice* sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, const char* nomDeLaMatriceSousMatrice);
 
 		/**
 		 * @brief calculerDeterminant, calcule le déterminant de la matrice.
@@ -135,7 +135,7 @@ class Matrice
          * @brief Méthode getNomDeLaMatrice, retourne le nom de la matrice
          * 
          */
-        char* getNomDeLaMatrice();
+        const char* getNomDeLaMatrice();
 
 		/**
 		 * @brief Méthode getElement, retourne l'élément de la matrice à la position donnée.
@@ -165,7 +165,7 @@ class Matrice
 		 *
 		 * @return 1 si la modification a pu se faire, 0 sinon.
 		 */
-		uint8_t setNomDeLaMatrice(char* nomDeLaMatrice);
+		uint8_t setNomDeLaMatrice(const char* nomDeLaMatrice);
 
 		/**
 		 * @brief Méthode setDimX, modifie la dimension en X de la matrice en créant une nouvelle matrice.
@@ -199,5 +199,5 @@ class Matrice
 		double* elements;
 
 		/* Un tableau de caractères pour stocker le nom de la matrice. */
-		char*	nomDeLaMatrice;
+		const char*	nomDeLaMatrice;
 };
