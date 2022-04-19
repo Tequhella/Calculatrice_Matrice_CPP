@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.cpp                           */
-/* Numéro de version : 0.0.11                                */
+/* Numéro de version : 0.0.12                                */
 /* Date              : 19/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -134,6 +134,15 @@ void Matrice::afficherMatrice(uint8_t format)
         }
         cout << endl;
     }
+}
+
+/**
+ * @brief afficherTailleMatriceOctet, affiche la taille de la matrice en octet.
+ */
+void Matrice::afficherTailleMatriceOctet()
+{
+    cout << "La taille de la matrice en octet est de " << sizeof(this) << " octets." << endl;
+    cout << "La taille du tableau d'éléments de la matrice est de " << sizeof(this->elements) * this->dimX * this->dimY << " octets." << endl;
 }
 
 /**
@@ -427,6 +436,35 @@ Matrice* Matrice::inverserMatrice(const char* nomDeLaMatriceInverse)
             cerr << "La matrice n'est pas inversible" << endl;
             return nullptr;
         }
+    }
+    else
+    {
+        cerr << "Erreur d'allocation de la matrice" << endl;
+        return nullptr;
+    }
+}
+
+/**
+ * @brief diviserMatriceParUnReel, divise la matrice par un nombre réel.
+ * 
+ * @param nb le nombre qui sera divisé par la matrice.
+ * @param nomDeLaMatriceDivisee le nom de la matrice issue de la division.
+ * 
+ * @return la matrice issue de la division.
+ */
+Matrice* Matrice::diviserMatriceParUnReel(double nb, const char* nomDeLaMatriceDivisee)
+{
+    Matrice* matriceDivisee = new Matrice(nomDeLaMatriceDivisee, this->dimX, this->dimY, NULLE);
+    if (matriceDivisee)
+    {
+        for (int i = 0; i < this->dimY; i++)
+        {
+            for (int j = 0; j < this->dimX; j++)
+            {
+                matriceDivisee->setElement(j, i, this->getElement(j, i) / nb);
+            }
+        }
+        return matriceDivisee;
     }
     else
     {

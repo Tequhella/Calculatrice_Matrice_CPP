@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.h                             */
-/* Numéro de version : 0.0.11                                */
+/* Numéro de version : 0.0.12                                */
 /* Date              : 19/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -52,6 +52,11 @@ class Matrice
 		 * @param format le nombre de caractères à afficher pour chaque élément.
 		 */
 		void afficherMatrice(uint8_t format);
+
+		/**
+		 * @brief afficherTailleMatriceOctet, affiche la taille de la matrice en octet.
+		 */
+		void afficherTailleMatriceOctet();
 
 		/**
 		 * @brief Méthode transposerMatrice, transpose la matrice.
@@ -127,6 +132,16 @@ class Matrice
 		 * @return la matrice issue de l'inversion.
 		 */
 		Matrice* inverserMatrice(const char* nomDeLaMatriceInverse);
+
+		/**
+		 * @brief diviserMatriceParUnReel, divise la matrice par un nombre réel.
+		 * 
+		 * @param nb le nombre qui sera divisé par la matrice.
+		 * @param nomDeLaMatriceDivisee le nom de la matrice issue de la division.
+		 * 
+		 * @return la matrice issue de la division.
+		 */
+		Matrice* diviserMatriceParUnReel(double nb, const char* nomDeLaMatriceDivisee);
 
         //=======================================================================================//
 
