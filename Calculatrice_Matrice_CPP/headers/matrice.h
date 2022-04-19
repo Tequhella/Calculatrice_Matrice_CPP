@@ -56,9 +56,11 @@ class Matrice
 		/**
 		 * @brief Méthode transposerMatrice, transpose la matrice.
 		 * 
+		 * @param nomDeLaMatriceTransposee le nom de la matrice transposée 
+		 * 
 		 * @return la matrice transposée.
 		 */
-		Matrice* transposerMatrice();
+		Matrice* transposerMatrice(const char* nomDeLaMatriceTransposee);
 
 		/**
 		 * @brief Méthode additionnerMatrice, additionne deux matrice.
@@ -116,6 +118,15 @@ class Matrice
 		 * @return le déterminant de la matrice.
 		 */
 		double calculerDeterminant();
+
+		/**
+		 * @brief inverserMatrice, inverse la matrice.
+		 * 
+		 * @param nomDeLaMatriceInverse la matrice issue de l'inversion.
+		 * 
+		 * @return la matrice issue de l'inversion.
+		 */
+		Matrice* inverserMatrice(const char* nomDeLaMatriceInverse);
 
         //=======================================================================================//
 

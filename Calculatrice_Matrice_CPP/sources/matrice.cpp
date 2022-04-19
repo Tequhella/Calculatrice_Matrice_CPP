@@ -138,12 +138,14 @@ void Matrice::afficherMatrice(uint8_t format)
 
 /**
  * @brief Méthode transposerMatrice, transpose la matrice.
+ * 
+ * @param nomDeLaMatriceTransposee le nom de la matrice transposée
  *
  * @return la matrice transposée.
  */
-Matrice* Matrice::transposerMatrice()
+Matrice* Matrice::transposerMatrice(const char* nomDeLaMatriceTransposee)
 {
-    Matrice *matriceTransposee = new Matrice("Matrice Transposée", this->dimX, this->dimY, NULLE);
+    Matrice *matriceTransposee = new Matrice(nomDeLaMatriceTransposee, this->dimX, this->dimY, NULLE);
 
     if (matriceTransposee)
     {
@@ -329,7 +331,6 @@ Matrice* Matrice::sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, const ch
                 }
             }
         }
-        matriceSousMatrice->afficherMatrice(4);
         return matriceSousMatrice;
     }
     else
@@ -383,6 +384,54 @@ double Matrice::calculerDeterminant()
     {
         cerr << "La matrice n'est pas carrée" << endl;
         return 0;
+    }
+}
+
+/**
+ * @brief inverserMatrice, inverse la matrice.
+ * 
+ * @param nomDeLaMatriceInverse la matrice issue de l'inversion.
+ * 
+ * @return la matrice issue de l'inversion.
+ */
+Matrice* Matrice::inverserMatrice(const char* nomDeLaMatriceInverse)
+{
+    Matrice* matriceInverse = new Matrice(nomDeLaMatriceInverse, this->dimX, this->dimY, NULLE);
+    if (matriceInverse)
+    {
+        double determinant = this->calculerDeterminant();
+        if (determinant != 0)
+        {
+            for (int i = 0; i < this->dimY; i++)
+            {
+                for (int j = 0; j < this->dimX; j++)
+                {
+                    Matrice* matriceSousMatrice = this->sousMatrice(j, i, "sousMatrice");
+                    if (matriceSousMatrice)
+                    {
+                        double coeff = pow(-1, i + j) * matriceSousMatrice->calculerDeterminant();
+                        matriceInverse->setElement(j, i, coeff * (1 / determinant));
+                        delete matriceSousMatrice;
+                    }
+                    else
+                    {
+                        cerr << "Erreur d'allocation de la matrice" << endl;
+                        return nullptr;
+                    }
+                }
+            }
+            return matriceInverse;
+        }
+        else
+        {
+            cerr << "La matrice n'est pas inversible" << endl;
+            return nullptr;
+        }
+    }
+    else
+    {
+        cerr << "Erreur d'allocation de la matrice" << endl;
+        return nullptr;
     }
 }
 

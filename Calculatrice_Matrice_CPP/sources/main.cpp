@@ -12,12 +12,15 @@
 
 int main()
 {
-    Matrice* matrice = new Matrice("Matrice 1", 4, 4, ALEATOIRE);
+    Matrice* matrice = new Matrice("Matrice 1", 5, 5, ALEATOIRE);
+    Matrice* matrice2 = matrice->inverserMatrice("Matrice 2");
     matrice->afficherMatrice(10);
+    matrice2->afficherMatrice(10);
 
-    cout << matrice->calculerDeterminant() << endl;
+
 
     delete matrice;
+    delete matrice2;
 
     return 0;
 }
