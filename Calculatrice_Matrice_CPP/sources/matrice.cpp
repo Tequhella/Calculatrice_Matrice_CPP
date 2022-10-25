@@ -2,12 +2,15 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.cpp                           */
-/* Numéro de version : 0.0.12                                */
+/* Numéro de version : 0.0.13                                */
 /* Date              : 19/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
 
 #include "../headers/matrice.h"
+
+int Matrice::nbMatriceCrees = 0;
+int Matrice::nbMatriceDetruites = 0;
 
 /**
  * @brief Constructeur Matrice, crée une matrice de dimensions aléatoire de 0 à 255, de valeurs aléatoires, et de nom aléatoire.
@@ -15,10 +18,10 @@
 Matrice::Matrice()
 {
 
-    std::random_device rd;
-    std::default_random_engine eng(rd());
-    std::uniform_int_distribution<uint8_t> distr(1, 20);
-    std::uniform_int_distribution<uint8_t> distr2(1, 100);
+    random_device rd;
+    default_random_engine eng(rd());
+    uniform_int_distribution<uint8_t> distr(1, 20);
+    uniform_int_distribution<uint8_t> distr2(1, 100);
 
     this->dimX = distr(eng);
     this->dimY = distr(eng);
@@ -38,10 +41,13 @@ Matrice::Matrice()
                 this->setElement(j, i, distr2(eng));
             }
         }
+        numMatrice = nbMatriceCrees;
+        nbMatriceCrees++;
     }
     else
     {
-        cout << "Erreur d'allocation de la matrice" << endl;
+        cerr << "Erreur d'allocation de la matrice" << endl;
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -62,6 +68,10 @@ Matrice::Matrice(const char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t
     std::uniform_int_distribution<uint8_t> distr(1, 100);
 
     this->elements = new double[this->dimX * this->dimY];
+    /* Pour accéder à un élément de la matrice, on utilise la formule suivante :
+     * elements[dimX * i + j]
+     * où i est la ligne et j la colonne
+     */
 
     if (this->elements)
     {
@@ -69,49 +79,37 @@ Matrice::Matrice(const char* nomDeLaMatrice, uint8_t dimX, uint8_t dimY, uint8_t
         {
         case NULLE:
             for (int i = 0; i < this->dimY; i++)
-            {
                 for (int j = 0; j < this->dimX; j++)
-                {
                     this->setElement(j, i, 0);
-                }
-            }
             break;
         case IDENTITE:
             for (int i = 0; i < this->dimY; i++)
-            {
                 for (int j = 0; j < this->dimX; j++)
                 {
-                    if (i == j)
-                    {
-                        this->setElement(j, i, 1);
-                    }
-                    else
-                    {
-                        this->setElement(j, i, 0);
-                    }
+                    if (i == j) /*--->*/ this->setElement(j, i, 1);
+                    else /*---------->*/ this->setElement(j, i, 0);
                 }
-            }
             break;
         case ALEATOIRE:
             for (int i = 0; i < this->dimY; i++)
-            {
                 for (int j = 0; j < this->dimX; j++)
-                {
                     this->setElement(j, i, distr(eng));
-                }
-            }
             break;
         }
+        numMatrice = nbMatriceCrees;
+        nbMatriceCrees++;
     }
     else
     {
         cerr << "Erreur d'allocation de la matrice" << endl;
+        exit(EXIT_FAILURE);
     }
 }
 
 Matrice::~Matrice()
 {
     delete[] this->elements;
+    nbMatriceDetruites++;
 }
 
 //=======================================================================================//
@@ -519,6 +517,16 @@ double Matrice::getElement(uint8_t x, uint8_t y)
         return 0;
     }
 }
+
+/**
+ * @brief Méthode getNumMatrice, retourne le numéro de la matrice.
+ * 
+ */
+uint8_t Matrice::getNumMatrice()
+{
+    return this->numMatrice;
+}
+
 /**
  * @brief Méthode setElement, modifie l'élément de la matrice à la position donnée.
  *

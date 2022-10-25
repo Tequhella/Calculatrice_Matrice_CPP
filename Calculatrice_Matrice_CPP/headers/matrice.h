@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.h                             */
-/* Numéro de version : 0.0.12                                */
+/* Numéro de version : 0.0.13                                */
 /* Date              : 19/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -24,6 +24,12 @@ using namespace std;
 class Matrice
 {
 	public:
+
+        /* Variable statique utilisée pour compter le nombre de matrices créées. */
+        static int nbMatriceCrees;
+
+        /* Variable statique utilisée pour compter le nombre de matrices détruites. */
+        static int nbMatriceDetruites;
 		
 		/**
 		 * @brief Constructeur Matrice, crée une matrice de dimensions aléatoire de 0 à 255, de valeurs aléatoires, et de nom aléatoire.
@@ -173,6 +179,14 @@ class Matrice
 		 */
 		double getElement(uint8_t x, uint8_t y);
 
+        /**
+         * @brief Méthode getNumMatrice, retourne le numéro de la matrice.
+         * 
+         */
+        uint8_t getNumMatrice();
+
+        
+
 		/**
 		 * @brief Méthode setElement, modifie l'élément de la matrice à la position donnée.
 		 *
@@ -211,8 +225,6 @@ class Matrice
 		 */
 		uint8_t setDimY(uint8_t dimY);
 
-
-
 		
 	private:
 		
@@ -226,4 +238,7 @@ class Matrice
 
 		/* Un tableau de caractères pour stocker le nom de la matrice. */
 		const char*	nomDeLaMatrice;
+
+        /* Un entier constant utilisé pour stocker le numéro de la matrice. */
+        uint8_t numMatrice;
 };

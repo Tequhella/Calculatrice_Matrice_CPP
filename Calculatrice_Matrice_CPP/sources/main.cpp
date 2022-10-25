@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : main.cpp                              */
-/* Numéro de version : 0.0.12                                */
+/* Numéro de version : 0.0.13                                */
 /* Date              : 19/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -19,8 +19,12 @@ int main()
 
     matrice->afficherTailleMatriceOctet();
 
+    cout << "Nombre de matrice créées :" << Matrice::nbMatriceCrees << endl;
+
     delete matrice;
     delete matrice2;
+
+    cout << "Nombre de matrice détruites :" << Matrice::nbMatriceDetruites << endl;
 
     return 0;
 }
