@@ -1,19 +1,17 @@
-CC  	= g++
+CC  	= gcc
 
-G++ 	= -g -Wall
+FLAGS 	= -g -Wall
 
-Sources = Calculatrice_Matrice_CPP/sources
+obj	= C-Matrice/obj
 
-obj		= Calculatrice_Matrice_CPP/obj
-
-all: $(obj)/main.o $(obj)/matrice.o
-	$(CC) $(G++) $(obj)/main.o $(obj)/matrice.o -o calculatrice_matrice_CPP
+all: $(obj)/main.o $(obj)/fonction.o
+	$(CC) $(FLAGS) $(obj)/main.o $(obj)/fonction.o -o C-Matrice
 
 $(obj)/main.o: 
-	$(CC) $(G++) -c $(Sources)/main.cpp -o $(obj)/main.o
+	$(CC) $(FLAGS) -c main.c -o $(obj)/main.o
 
-$(obj)/matrice.o: 
-	$(CC) $(G++) -c $(Sources)/matrice.cpp -o $(obj)/matrice.o
+$(obj)/fonction.o: 
+	$(CC) $(FLAGS) -c fonction.c -o $(obj)/fonction.o
 
 clean:
-	rm -f $(obj)/*.o calculatrice_matrice_CPP
+	rm -f $(obj)/*.o C-Matrice
