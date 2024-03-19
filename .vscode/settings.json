@@ -45,5 +45,6 @@
         "streambuf": "cpp",
         "typeinfo": "cpp"
     },
-    "docwriter.style": "Doxygen"
+    "docwriter.style": "Doxygen",
+    "sarif-viewer.connectToGithubCodeScanning": "off"
 }

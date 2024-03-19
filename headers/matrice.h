@@ -11,6 +11,10 @@
 
 #include <iostream>
 #include <random>
+#include <boost/rational.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/cpp_dec_float.hpp>
+
 /* Enumération des différents type de matrice. */
 enum
 {

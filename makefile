@@ -1,19 +1,18 @@
-CC  	= g++
+GCC    	  = g++
+CFLAGS 	  = -g -Wall
+TARGET 	  = calculatriceMatrice_CPP
+OBJS      = obj/main.o obj/matrice.o
 
-G++ 	= -g -Wall
+all: $(OBJS)
+	$(GCC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-Sources = Calculatrice_Matrice_CPP/sources
+obj/main.o: sources/main.cpp headers/matrice.h
+#check if obj directory exists, if not create it
+	@if [ ! -d "obj" ]; then mkdir obj; fi
+	$(GCC) $(CFLAGS) -c sources/main.cpp -o obj/main.o
 
-obj		= Calculatrice_Matrice_CPP/obj
-
-all: $(obj)/main.o $(obj)/matrice.o
-	$(CC) $(G++) $(obj)/main.o $(obj)/matrice.o -o calculatrice_matrice_CPP
-
-$(obj)/main.o: 
-	$(CC) $(G++) -c $(Sources)/main.cpp -o $(obj)/main.o
-
-$(obj)/matrice.o: 
-	$(CC) $(G++) -c $(Sources)/matrice.cpp -o $(obj)/matrice.o
+obj/matrice.o: sources/matrice.cpp headers/matrice.h headers/fractionizer.h
+	$(GCC) $(CFLAGS) -c sources/matrice.cpp -o obj/matrice.o
 
 clean:
-	rm -f $(obj)/*.o calculatrice_matrice_CPP
+	rm -f $(OBJS) $(TARGET)

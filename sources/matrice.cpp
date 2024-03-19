@@ -8,6 +8,7 @@
 /*************************************************************/
 
 #include "../headers/matrice.h"
+#include "../headers/fractionizer.h"
 
 int Matrice::nbMatriceCrees = 0;
 int Matrice::nbMatriceDetruites = 0;
@@ -114,6 +115,19 @@ Matrice::~Matrice()
 
 //=======================================================================================//
 
+long gcd(long a, long b)
+{
+    if (a == 0)
+        return b;
+    else if (b == 0)
+        return a;
+
+    if (a < b)
+        return gcd(a, b % a);
+    else
+        return gcd(b, a % b);
+}
+
 /**
  * @brief Méthode afficherMatrice, imprime la matrice.
  *
@@ -128,7 +142,20 @@ void Matrice::afficherMatrice(uint8_t format)
     {
         for (int j = 0; j < this->dimX; j++)
         {
-            cout << this->getElement(j, i) << " ";
+            double input = this->getElement(j, i);
+            double integral = std::floor(input);
+            double frac = input - integral;
+
+            if (frac == 0) // Si l'élément est un entier
+            {
+                cout << integral << " ";
+            }
+            else // Si l'élément est un nombre décimal
+            {
+                double num, denom;
+                Fractionizer::fractionize(input, num, denom);
+                cout << num << "/" << denom << " ";
+            }
         }
         cout << endl;
     }
@@ -326,15 +353,23 @@ Matrice* Matrice::sousMatrice(uint8_t colonneDebut, uint8_t ligneDebut, const ch
     Matrice* matriceSousMatrice = new Matrice(nomDeLaMatriceSousMatrice, this->dimX - 1, this->dimY - 1, NULLE);
     if (matriceSousMatrice)
     {
-        uint8_t k = 0;
+        uint8_t kx = 0, ky = 0;
         for (int i = 0; i < this->dimY; i++)
         {
-            for (int j = 0; j < this->dimX; j++)
+            if (i != ligneDebut)
             {
-                if (i != ligneDebut && j != colonneDebut)
+                for (int j = 0; j < this->dimX; j++)
                 {
-                    matriceSousMatrice->setElement(k % matriceSousMatrice->dimX, k / matriceSousMatrice->dimY, this->getElement(j, i));
-                    k++;
+                    if (j != colonneDebut)
+                    {
+                        matriceSousMatrice->setElement(kx, ky, this->getElement(j, i));
+                        kx++;
+                        if (kx >= matriceSousMatrice->dimX)
+                        {
+                            kx = 0;
+                            ky++;
+                        }
+                    }
                 }
             }
         }
@@ -372,8 +407,8 @@ double Matrice::calculerDeterminant()
                 Matrice* matriceSousMatrice = this->sousMatrice(i, 0, "sousMatrice");
                 if (matriceSousMatrice)
                 {
-                    if (i % 2 == 0) /*--->*/ determinant = determinant + this->elements[i] * matriceSousMatrice->calculerDeterminant();
-                    else /*-------------->*/ determinant = determinant - this->elements[i] * matriceSousMatrice->calculerDeterminant();
+                    if (i % 2 == 0) /*--->*/ determinant = determinant + this->getElement(i, 0) * matriceSousMatrice->calculerDeterminant();
+                    else /*-------------->*/ determinant = determinant - this->getElement(i, 0) * matriceSousMatrice->calculerDeterminant();
                     
                     delete matriceSousMatrice;
                 }
@@ -413,11 +448,11 @@ Matrice* Matrice::inverserMatrice(const char* nomDeLaMatriceInverse)
             {
                 for (int j = 0; j < this->dimX; j++)
                 {
-                    Matrice* matriceSousMatrice = this->sousMatrice(j, i, "sousMatrice");
+                    Matrice* matriceSousMatrice = this->sousMatrice(i, j, "sousMatrice");
                     if (matriceSousMatrice)
                     {
                         double coeff = pow(-1, i + j) * matriceSousMatrice->calculerDeterminant();
-                        matriceInverse->setElement(j, i, coeff * (1 / determinant));
+                        matriceInverse->setElement(j, i, coeff / determinant);
                         delete matriceSousMatrice;
                     }
                     else
