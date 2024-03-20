@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.cpp                           */
-/* Numéro de version : 0.0.13                                */
+/* Numéro de version : 0.0.14                                */
 /* Date              : 19/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -315,28 +315,33 @@ Matrice* Matrice::multiplierMatriceParUnReel(double nb, const char* nomDeLaMatri
  */
 Matrice* Matrice::multiplierMatriceParUneMatrice(Matrice* matriceMultiplieur, const char* nomDeLaMatriceProduit)
 {
-    Matrice* matriceProduit = new Matrice(nomDeLaMatriceProduit, matriceMultiplieur->dimX, matriceMultiplieur->dimY, NULLE);
-    if (matriceProduit)
+    if (this->dimY != matriceMultiplieur->dimY)
     {
-        for (int i = 0; i < this->dimY; i++)
-        {
-            for (int j = 0; j < matriceMultiplieur->dimX; j++)
-            {
-                double somme = 0;
-                for (int k = 0; k < matriceMultiplieur->dimY; k++)
-                {
-                    somme += this->elements[this->dimX * i + k] * matriceMultiplieur->getElement(j, k);
-                }
-                matriceProduit->setElement(j, i, somme);
-            }
-        }
-        return matriceProduit;
+        cerr << "Les matrices ne sont pas compatibles pour la multiplication" << endl;
+        return nullptr;
     }
-    else
+
+    Matrice* matriceProduit = new Matrice(nomDeLaMatriceProduit, matriceMultiplieur->dimX, matriceMultiplieur->dimY, NULLE);
+    if (!matriceProduit)
     {
         cerr << "Erreur d'allocation de la matrice" << endl;
         return nullptr;
+        
     }
+
+    for (int i = 0; i < this->dimY; i++)
+    {
+        for (int j = 0; j < matriceMultiplieur->dimX; j++)
+        {
+            double somme = 0;
+            for (int k = 0; k < this->dimX; k++)
+            {
+                somme += this->getElement(k, i) * matriceMultiplieur->getElement(j, k);
+            }
+            matriceProduit->setElement(j, i, somme);
+        }
+    }
+    return matriceProduit;
 }
 
 /**
@@ -497,6 +502,29 @@ Matrice* Matrice::diviserMatriceParUnReel(double nb, const char* nomDeLaMatriceD
                 matriceDivisee->setElement(j, i, this->getElement(j, i) / nb);
             }
         }
+        return matriceDivisee;
+    }
+    else
+    {
+        cerr << "Erreur d'allocation de la matrice" << endl;
+        return nullptr;
+    }
+}
+
+/**
+ * @brief diviserMatriceParUneMatrice, divise la matrice par une autre matrice.
+ * 
+ * @param matriceDiviseur la matrice qui divise la matrice actuelle.
+ * @param nomDeLaMatriceDivisee le nom de la matrice issue de la division.
+ * @return Matrice* la matrice issue de la division.
+ */
+Matrice* Matrice::diviserMatriceParUneMatrice(Matrice* matriceDiviseur, const char* nomDeLaMatriceDivisee)
+{
+    Matrice* matriceInverse = matriceDiviseur->inverserMatrice("matriceInverse");
+    if (matriceInverse)
+    {
+        Matrice* matriceDivisee = this->multiplierMatriceParUneMatrice(matriceInverse, nomDeLaMatriceDivisee);
+        delete matriceInverse;
         return matriceDivisee;
     }
     else

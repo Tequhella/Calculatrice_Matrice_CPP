@@ -2,7 +2,7 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.h                             */
-/* Numéro de version : 0.0.13                                */
+/* Numéro de version : 0.0.14                                */
 /* Date              : 19/04/2022                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
@@ -152,6 +152,15 @@ class Matrice
 		 * @return la matrice issue de la division.
 		 */
 		Matrice* diviserMatriceParUnReel(double nb, const char* nomDeLaMatriceDivisee);
+
+        /**
+         * @brief diviserMatriceParUneMatrice, divise la matrice par une autre matrice.
+         * 
+         * @param matricDiviseur la matrice qui divise la matrice actuelle.
+         * @param nomDeLaMatriceDivisee le nom de la matrice issue de la division.
+         * @return Matrice* la matrice issue de la division.
+         */
+        Matrice* diviserMatriceParUneMatrice(Matrice* matricDiviseur, const char* nomDeLaMatriceDivisee);
 
         //=======================================================================================//
 
