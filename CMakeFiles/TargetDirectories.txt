@@ -1,3 +1,0 @@
-/home/tequhella/Documents/GitHub/Calculatrice_Matrice_CPP/CMakeFiles/calculatriceMatrice_CPP.dir
-/home/tequhella/Documents/GitHub/Calculatrice_Matrice_CPP/CMakeFiles/edit_cache.dir
-/home/tequhella/Documents/GitHub/Calculatrice_Matrice_CPP/CMakeFiles/rebuild_cache.dir
