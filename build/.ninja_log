@@ -1,0 +1,5 @@
+# ninja log v5
+0	6056	1712318377484001827	CMakeFiles/calculatriceMatrice_CPP.dir/sources/main.cpp.o	f24c2409bfe603e4
+19	9491	1712325125237886378	CMakeFiles/calculatriceMatrice_CPP.dir/sources/matrice.cpp.o	b364314668716e
+14	5415	1712325171329886378	CMakeFiles/calculatriceMatrice_CPP.dir/sources/interface.cpp.o	8912818fe4bf5268
+5415	6417	1712325172341886378	calculatriceMatrice_CPP	cf5a997263657dcc

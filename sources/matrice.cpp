@@ -2,8 +2,8 @@
 /* Calculatrice_Matrice_CPP						             */
 /*-----------------------------------------------------------*/
 /* Module            : matrice.cpp                           */
-/* Numéro de version : 0.0.14                                */
-/* Date              : 19/04/2022                            */
+/* Numéro de version : 0.0.15                                */
+/* Date              : 05/04/2024                            */
 /* Auteurs           : Lilian CHARDON, Andréas CASTELLO      */
 /*************************************************************/
 
